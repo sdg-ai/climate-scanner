@@ -11,10 +11,14 @@
 #....
 
 
+<<<<<<< HEAD
 # Model Hyper-Parameters:
 #...
 
 
 
 # Optimization parameters:
+=======
+# Model Parameters:
+>>>>>>> dev
 #...
