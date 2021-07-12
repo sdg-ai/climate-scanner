@@ -1,0 +1,8 @@
+
+data:
+  path_to_data: "path to data"
+  path_to_model: "path to model bin"
+
+config:
+  n_epoch: 4
+  lr: 0.01
