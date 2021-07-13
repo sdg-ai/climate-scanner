@@ -8,3 +8,5 @@ from climate_scanner.trends_innovation_classifier import ...
 ```
 
 ## Implementation details
+
+
