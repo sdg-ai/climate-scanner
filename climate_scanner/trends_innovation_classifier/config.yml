@@ -2,6 +2,7 @@
 data:
   path_to_data: "path to data"
   path_to_model: "path to model bin"
+  input_coordinator: ["ID","title","doc","climate_scanner","climate_scanner_prob"]
 
 config:
   n_epoch: 4
