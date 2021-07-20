@@ -35,3 +35,11 @@ output = ec.process(input_json)
 ```
 
 For example:
+
+
+## Testing (for collaborators)
+The following runs the library unit tests. Please ensure changes you may have added do not cause issues in
+other parts of the code by running:
+```
+pytest
+```
