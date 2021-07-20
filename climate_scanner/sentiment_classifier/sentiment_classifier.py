@@ -332,8 +332,8 @@ class pre_processing:
 #
 #############################################################################
 
-class interface:
-    # interface class to use SentimentClassifier
+class sentiment_interface:
+    # sentiment interface class to use SentimentClassifier
     def __init__(self):
         # getting parameters:
         self.sentiment_params = get_params()
