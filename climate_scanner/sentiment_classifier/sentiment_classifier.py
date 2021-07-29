@@ -5,6 +5,7 @@ import yaml
 from datetime import datetime
 import pandas as pd
 import numpy as np
+import copy
 
 # tf
 import tensorflow as tf
@@ -161,12 +162,12 @@ class SentimentClassifier(Model):
         #    ---
         if call_backs_dir:
             # tensorboard -log files 
-            log_dir = get_data(self._path_to_logs)+call_backs_dir + '\\'+datetime.now().strftime("%Y%m%d-%H%M%S")
+            log_dir = os.path.join(get_data(self._path_to_logs),call_backs_dir,datetime.now().strftime("%Y%m%d-%H%M%S"))
             tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir)
             
             # checkpoints to save model
-            checkpoint_dir = get_data(self._path_to_checkpoints) +call_backs_dir +'\\'
-            print(checkpoint_dir)
+            checkpoint_dir = os.path.join(get_data(self._path_to_checkpoints),call_backs_dir,'')
+            
             checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath =checkpoint_dir,
                                                                      save_freq = 'epoch',
                                                                      save_weights_only=True,
@@ -233,7 +234,7 @@ class SentimentClassifier(Model):
         # training performance
         try:
             path = get_data(self._path_to_checkpoints) + checkpoint_dir + '\\'
-            self.load_weights(path)
+            self.load_weights(path).expect_partial()
             print("Weights Loaded") # This should be a sent to a log file down the road
         except:
             print("No checkpoints saved!")
@@ -258,7 +259,7 @@ class SentimentClassifier(Model):
             # version_dir -> of type str() representing directory name aka: V1, V2, V3...etc
         # Returns:
             # --- prints / logs a statement of success or failure
-        path_to_model = get_data(self._path_to_model) + version_name
+        path_to_model = os.path.join(get_data(self._path_to_model),version_name)
         try:
             reconstructed_model = keras.models.load_model(path_to_model)
             print("model loaded successfully!")
@@ -273,7 +274,7 @@ class SentimentClassifier(Model):
 #
 #############################################################################
 
-class pre_processing:
+class PreProcessing:
     def pre_process_pipeline(text_lst,params):
         # Method to dump embeddings matrix into config.yaml file
         # Args:
@@ -301,7 +302,7 @@ class pre_processing:
         word_index = tokenizer.word_index
         
         # text to sequence & padding
-        sequences = tokenizer.texts_to_sequences(text_lst)
+        sequences           = tokenizer.texts_to_sequences(text_lst)
         sequences_padded    = pad_sequences(sequences, 
                                             maxlen=max_length, 
                                             padding=padding_type, 
@@ -328,55 +329,69 @@ class pre_processing:
 
 #############################################################################
 #
-# 	              SentimentClassifier class
+# 	              Interface class
 #
 #############################################################################
 
-class interface:
-    # interface class to use SentimentClassifier
+class SentimentInterface:
+    # sentiment interface class to use SentimentClassifier
+    def __init__(self):
+        # getting parameters:
+        self.sentiment_params = get_params()
+        self.sentiment_classifier = SentimentClassifier(embedding_matrix=None,params=self.sentiment_params)
+        self.sentiment_classifier.Load_weights('V1')
+
     # 
-    # utility function to load dummy data
-    def get_text():
-        path = get_data('extracted_text.parquet.gzip')
-        text = pd.read_parquet(path).dropna()
-        def rand_bin_array(K, N):
-            arr = np.zeros(N)
-            arr[:K]  = 1
-            np.random.shuffle(arr)
-            return arr
+    # # utility function to load dummy data
+    # def get_text():
+    #     path = get_data('extracted_text.parquet.gzip')
+    #     text = pd.read_parquet(path).dropna()
+    #     def rand_bin_array(K, N):
+    #         arr = np.zeros(N)
+    #         arr[:K]  = 1
+    #         np.random.shuffle(arr)
+    #         return arr
 
-        text["Labels"] = rand_bin_array(1000,text.shape[0])
-        text.columns=["Text","Labels"]
-        text = text.iloc[0:100]
-        return text
+    #     text["Labels"] = rand_bin_array(1000,text.shape[0])
+    #     text.columns=["Text","Labels"]
+    #     text = text.iloc[0:100]
+    #     return text
     
-    # just 
-    text = get_text()
-    txt_lst = text.Text.values.tolist()
+    # # just to test
+    # text = get_text()  # These 2 lines are going awya (just to test)
+    # txt_lst = text.Text.values.tolist()
 
-    def text_to_sentiment(txt_lst=txt_lst):
+    input_from_trend_classifier = [{'ID': 1545}, 
+    {'string_indices': (0, 121), 'text': 'Three-dimensional printing has changed the way we make everything from prosthetic limbs to aircraft parts and even homes.', 'string_prediction': ['building', '3-d printing'], 'string_prob': [0.9, 0.5]}, 
+    {'string_indices': (122, 181), 'text': 'Now it may be poised to upend the apparel industry as well.', 'string_prediction': ['building', '3-d printing'], 'string_prob': [0.9, 0.5]}]
+
+    def text_to_sentiment(self,input_from_trend_classifier=input_from_trend_classifier):
         # Method to run end-to-end sentiment classifier 
         # Args:
-            # txt_lst : list(str) representing paragraphs to extract sentiment on. default is dummy data
+            # input_from_trend_classifier -> list of dictionaries at index 0 we store article ID. 
         # Returns:
-            # predictions -> dictionary holding y_pred and y_proba
-        # getting params
-        params = get_params()
+            # predictions -> input_from_trend_classifier list of dictionaries + in each dictionary sentiment (-1,0,1) + associated proba
+
+        
+        text=[input_from_trend_classifier[idx]['text']for idx in range(len(input_from_trend_classifier)) if idx>0]
 
         # preprocessing the text list
-        sequences_padded,word_index= pre_processing.pre_process_pipeline(txt_lst,params)
-
-        # Creating an instance of classifier
-        clf = SentimentClassifier(embedding_matrix=None,params=params)
+        sequences_padded,_= PreProcessing.pre_process_pipeline(text,self.sentiment_params)
         
-        # loading weights from V1
-        clf.Load_weights('V1')
-
         # predicting 
-        y_proba,y_pred = clf.Predict(sequences_padded[:10], thresh=0.6)
-        predictions = {"y_pred":y_pred,"y_proba":y_proba}
+        y_proba,y_pred = self.sentiment_classifier.Predict(sequences_padded[0], thresh=0.6)
+
+        # reformating y_proba and y_pred
+        y_pred  = y_pred.squeeze().astype(int) 
+        y_proba = y_proba.squeeze().astype(float)
         
-        return predictions
+        output = copy.deepcopy(input_from_trend_classifier)
+
+        for idx in range(1,len(output)):
+            output[idx]['sentiment_class'] = y_pred[idx]
+            output[idx]['sentiment_proba'] = y_proba[idx]
+        
+        return output
 
 
 

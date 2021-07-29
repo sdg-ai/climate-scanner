@@ -1,4 +1,9 @@
 from sentiment_classifier import *
+##################################
+#          This file is          #
+#      For Training Purposes     #
+##################################
+
 
 def get_text():
     path = get_data('extracted_text.parquet.gzip')
