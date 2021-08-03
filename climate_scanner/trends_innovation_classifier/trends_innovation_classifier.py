@@ -14,7 +14,7 @@ class TrendsInnovationClassifier:
     """
 
     def __init__(self):
-        Doc2Trends.__init__(self)
+        pass
 
     def train(self):
         """
@@ -47,21 +47,20 @@ class TrendsInnovationClassifier:
 
 class Doc2Trends:
 
-    def __init__(self,input_dict=None,threshold=None):
-        self.input = input_dict
-        self.threshold = threshold
+    def __init__(self):
+        self.tic = TrendsInnovationClassifier()
 
-    def coordinator_pipeline(self):
+
+    def coordinator_pipeline(self,input_dict=None,threshold=None):
         id_dict = dict()
-        id_dict["ID"] = self.input["ID"]
-        if self.input["climate_scanner_prob"] >= self.threshold:
-            text = self.input["doc"]
+        id_dict["ID"] = input_dict["ID"]
+        if input_dict["climate_scanner_prob"] >= threshold:
+            text = input_dict["doc"]
             split_sentences = doc_to_sentence(text)
             all_predictions = []
             for dic in split_sentences:
                 sentence = data_processing(dic["text"])
-                tic = TrendsInnovationClassifier()
-                output = tic.predict(sentence)
+                output = self.tic.predict(sentence)
                 dic.update(output)
                 all_predictions.append(dic)
         else:
