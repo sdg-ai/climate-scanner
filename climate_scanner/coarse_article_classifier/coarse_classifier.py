@@ -1,7 +1,7 @@
 # Imports
 from sklearn.linear_model import LogisticRegression
 
-class classifier():
+class Classifier():
     def __init__(self, )
         log.info("Initializing classifier object")
 
