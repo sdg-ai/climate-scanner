@@ -145,13 +145,13 @@ class SentimentClassifier(Model):
         lastTensor = self.dense2(x)
         return lastTensor
     
-    def Compile(self):
+    def compile(self):
         # Method to compile the model
         self.compile(optimizer=self._opt, 
                      loss=self._model_loss, 
                      metrics=self._model_metrics)
         
-    def Fit(self,training_data,validation_data=None,call_backs_dir = None):
+    def fit(self,training_data,validation_data=None,call_backs_dir = None):
         # Method to fit the model to current data
         # Args:
         #    training_data   -> tuple(X,y) where X and y are of type numpy.array(). X represents text mapping, y is the label
@@ -198,7 +198,7 @@ class SentimentClassifier(Model):
              max_queue_size        = self._max_queue_size, 
              workers               = self._workers)
         
-    def Predict(self,X,thresh = None):
+    def predict(self,X,thresh = None):
         # Method to predict sentiment around text
         # Args:
             # X      -> of type numpy.array() representing text mapping used to predict sentiment
@@ -218,7 +218,7 @@ class SentimentClassifier(Model):
         return y_proba,y_pred
     
     
-    def Evaluate(self,y_true,y_pred):
+    def evaluate(self,y_true,y_pred):
         # Method to evaluate predictions using classification_report and confusion_matrix from sklearn
         # Args:
             # y_true -> numpy.array(int) representing the ground truth sentiment
@@ -228,7 +228,7 @@ class SentimentClassifier(Model):
         print(classification_report(y_true=y_true,y_pred=y_pred))
         print(confusion_matrix(y_true=y_true,y_pred=y_pred))
         
-    def Load_weights(self,checkpoint_dir):
+    def load_weights(self,checkpoint_dir):
         # Method to load weights from checkpoints - often used during traing in conjuction with tensorboard to monitor
         # training performance
         try:
@@ -238,7 +238,7 @@ class SentimentClassifier(Model):
         except:
             print("No checkpoints saved!")
     
-    def Save(self,version_name):
+    def save(self,version_name):
         # Method to save model to " data\\saved_models\\version"
         # Args:
             # version_dir -> of type str() representing directory name aka: V1, V2, V3...etc
@@ -252,7 +252,7 @@ class SentimentClassifier(Model):
         except:
             print("Warning: model was not saved!")
     
-    def Load_model(self,version_name):
+    def load_model(self,version_name):
         # Method to load model from " data\\saved_models\\version"
         # Args:
             # version_dir -> of type str() representing directory name aka: V1, V2, V3...etc
@@ -274,6 +274,7 @@ class SentimentClassifier(Model):
 #############################################################################
 
 class PreProcessing:
+    @staticmethod
     def pre_process_pipeline(text_lst,params):
         # Method to dump embeddings matrix into config.yaml file
         # Args:
@@ -308,7 +309,8 @@ class PreProcessing:
                                             truncating=trunc_type)
         
         return [sequences_padded,word_index] 
-    
+
+    @staticmethod
     def get_embeddings_mx(word_index):
         # Method to get embeddings matrix (transfer Learning from Spacy)
         # Args:
@@ -316,7 +318,7 @@ class PreProcessing:
         # Returns:
             # embedding_matrix: numpy.array() representing embedding matrix
         
-        nlp = en_core_web_lg.load()
+        nlp = spacy.load("en_core_web_lg")
         vocab = list(word_index.keys())
         num_tokens = len(vocab)
         embedding_dim = len(nlp('The').vector)
