@@ -24,7 +24,8 @@ class ClimateClassifier():
         """
         predict classes (relevant/not relevant) for the test data
         """
-        pass
+        output = {"climate_scanner_prob":1}
+        return output
     
     def evaluate(self, predictions):
         """
@@ -37,7 +38,7 @@ class Doc2Climate:
     def __init__(self):
         self.climate_classifier = ClimateClassifier()
 
-    def coordinator_pipeline(self,input_dict=None):        
+    def get_climate_class(self,input_dict=None):        
         text = input_dict["text"]
         all_predictions = []
         for dic in text:
