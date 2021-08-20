@@ -25,6 +25,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
+    cmdclass={'install': CustomInstall},
     name="climate_scanner",
     version="1.0",
     # long_description=long_description,
