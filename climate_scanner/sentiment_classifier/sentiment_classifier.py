@@ -22,7 +22,6 @@ from keras.preprocessing import text, sequence
 from keras import Model 
 
 import spacy
-import en_core_web_lg
 from sklearn.metrics import classification_report, confusion_matrix
 
 #############################################################################

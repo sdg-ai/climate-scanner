@@ -4,6 +4,23 @@ import setuptools
 from setuptools.command.install import install as _install
 import os
 
+
+# overide default install
+class CustomInstall(_install):
+    def run(self):
+        # install required modules
+        _install.do_egg_install(self)
+
+        # Download nltk models
+        import nltk
+        nltk.download("punkt")
+        nltk.download("vader_lexicon")
+        nltk.download("wordnet")
+
+        # download spacy language model
+        import spacy.cli
+        spacy.cli.download("en_core_web_lg")
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
@@ -17,8 +34,10 @@ setuptools.setup(
     scripts=[],
 
     # Project uses several external libs.
-    setup_requires=["numpy", "pandas", "scikit-learn",
+    install_requires=["numpy", "pandas", "scikit-learn",
                     "keras", "tensorflow", "pytest"],
+
+    setup_requires=['spacy', 'boto3', 'nltk'],
 
 
     package_data={
