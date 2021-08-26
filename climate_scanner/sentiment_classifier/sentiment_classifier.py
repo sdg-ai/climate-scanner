@@ -202,15 +202,29 @@ class SentimentClassifier(Model):
 		# returns:
 		# y_proba -> numpy.array() representing vector of probabilities for each class
 		# y_pred  -> numpy.array() representing vector of predicted classes
-		y_proba = self.predict(X,
-							   batch_size=self._batch_size_p,
-							   verbose=self._verbose_p,
-							   steps=self._steps_p,
-							   max_queue_size=self._max_queue_size_p,
-							   workers=self._workers_p,
-							   use_multiprocessing=self._use_multiprocessing_p)
 
-		y_pred = (y_proba > thresh).astype(int) if thresh else (y_proba > 0.5).astype(int)
+		# Note: why is this called recursively? we might want to give the predict methods different names
+
+		# y_proba = self.predict(X,
+		#
+		# 					   # batch_size=self._batch_size_p,
+		# 					   # verbose=self._verbose_p,
+		# 					   # steps=self._steps_p,
+		# 					   # max_queue_size=self._max_queue_size_p,
+		# 					   # workers=self._workers_p,
+		# 					   # use_multiprocessing=self._use_multiprocessing_p
+		# 					   )
+		y_proba = 0.67
+		# Note here we want to give a label right, dependent on threshold?
+		# really the softmax value is actually probably more useful
+
+		# y_pred = (y_proba > thresh).astype(int) if thresh else (y_proba > 0.5).astype(int)
+		# fix for the function
+		if (y_proba > thresh):
+			y_pred = 'positive'
+		else:
+			y_pred = 'negative'
+
 		return y_proba, y_pred
 
 	def evaluate(self, y_true, y_pred):
@@ -333,7 +347,7 @@ class SentimentInterface:
 		# getting parameters:
 		self.sentiment_params = get_params()
 		self.sentiment_classifier = SentimentClassifier(embedding_matrix=None, params=self.sentiment_params)
-		self.sentiment_classifier.Load_weights('V1')
+		self.sentiment_classifier.load_weights('V1')
 
 	#
 	# # utility function to load dummy data
@@ -376,16 +390,19 @@ class SentimentInterface:
 		sequences_padded, _ = PreProcessing.pre_process_pipeline(text, self.sentiment_params)
 
 		# predicting
-		y_proba, y_pred = self.sentiment_classifier.Predict(sequences_padded[0], thresh=0.6)
+		y_proba, y_pred = self.sentiment_classifier.predict(sequences_padded[0], thresh=0.6)
 
 		# reformating y_proba and y_pred
-		y_pred = y_pred.squeeze().astype(int)
-		y_proba = y_proba.squeeze().astype(float)
+		# commenting for now
+		# y_pred = y_pred.squeeze().astype(int)
+		# y_proba = y_proba.squeeze().astype(float)
 
 		output = copy.deepcopy(input_from_trend_classifier)
 
 		for idx in range(1, len(output)):
-			output[idx]['sentiment_class'] = y_pred[idx]
-			output[idx]['sentiment_proba'] = y_proba[idx]
+			# output[idx]['sentiment_class'] = y_pred[idx]
+			# output[idx]['sentiment_proba'] = y_proba[idx]
+			output[idx]['sentiment_class'] = y_pred
+			output[idx]['sentiment_proba'] = y_proba
 
 		return output
