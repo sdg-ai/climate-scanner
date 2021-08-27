@@ -1,5 +1,5 @@
 import unittest
-from trends_innovation_classifier import *
+from climate_scanner.trends_innovation_classifier.trends_innovation_classifier import *
 
 class MyTestCase(unittest.TestCase):
     def test_coordinator_pipeline(self):

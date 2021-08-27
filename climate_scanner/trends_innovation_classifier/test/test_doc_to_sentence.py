@@ -1,5 +1,5 @@
 import unittest
-from data_utils import doc_to_sentence
+from climate_scanner.trends_innovation_classifier.data_utils import doc_to_sentence
 
 
 class MyTestCase(unittest.TestCase):
