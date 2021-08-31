@@ -84,7 +84,7 @@ class SentimentClassifier(Model):
 		self._beta_2 = params['optimizer']['beta_2']
 		self._epsilon = params['optimizer']['epsilon']
 		self._amsgrad = params['optimizer']['amsgrad']
-		self._opt = keras.optimizers.Adam(learning_rate=self._lr,
+		self._opt = tf.keras.optimizers.Adam(learning_rate=self._lr,
 										  beta_1=self._beta_1,
 										  beta_2=self._beta_2,
 										  epsilon=self._epsilon,
