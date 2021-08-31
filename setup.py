@@ -35,7 +35,7 @@ setuptools.setup(
     scripts=[],
 
     # Project uses several external libs.
-    install_requires=["numpy", "pandas", "scikit-learn",
+    install_requires=["numpy==1.19.2", "pandas", "scikit-learn",
                     "keras", "tensorflow", "pytest"],
 
     setup_requires=['spacy', 'boto3', 'nltk'],
