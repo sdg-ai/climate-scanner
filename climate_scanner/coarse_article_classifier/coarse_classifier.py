@@ -1,9 +1,11 @@
 # Imports
-from data_utils import DataUtils
+from .data_utils import DataUtils
 
 class ClimateClassifier():
-    def __init__(self, )
-        log.info("Initializing classifier object")
+    def __init__(self):
+        # TODO: add initialise logger
+        # log.info("Initializing classifier object")
+        pass
 
     def train(self, final__data):
         """
@@ -37,15 +39,12 @@ class Doc2Climate:
 
     def __init__(self):
         self.climate_classifier = ClimateClassifier()
+        self.utils = DataUtils()
 
-    def get_climate_class(self,input_dict=None):        
-        text = input_dict["text"]
-        all_predictions = []
-        for dic in text:
-            processed_data = DataUtils.pre_processing(dic["text"])
-            cleaned_data = DataUtils.data_cleaning(processed_data)
-            output = self.climate_classifier.predict(cleaned_data)
-            dic.update(output)
-            all_predictions.append(dic)
-
-        return input_dict["id"] + all_predictions
+    def get_climate_class(self,input_dict=None):
+        text = input_dict["doc"]
+        processed_data = self.utils.pre_processing(text)
+        cleaned_data = self.utils.data_cleaning(processed_data)
+        output = self.climate_classifier.predict(cleaned_data)
+        input_dict.update(output)
+        return input_dict

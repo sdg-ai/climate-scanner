@@ -1,6 +1,7 @@
-numpy
+numpy==1.19.2
 pandas
 scikit-learn
 keras
 tensorflow
 pytest
+nltk

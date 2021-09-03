@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
 import yaml
-from data_utils import doc_to_sentence,data_processing
+from .data_utils import doc_to_sentence,data_processing
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # loading config params
-with open(os.path.join(_ROOT,"config.yml")) as f:
+with open(os.path.join(_ROOT, 'data', "config.yml")) as f:
     params = yaml.load(f, Loader=yaml.FullLoader)
 
 class TrendsInnovationClassifier:
