@@ -1,8 +1,13 @@
-
 data:
   path_to_data: "path to data"
   path_to_model: "path to model bin"
   input_coordinator: ["ID","title","doc","climate_scanner","climate_scanner_prob"]
+  path_to_trainingData: "data\\trainingData\\"
+  
+pre_training:
+  num_sentences: 3  
+  input_fileName: "training_data.jsonl"
+  output_fileName: "trainingData.jsonl"
 
 config:
   n_epoch: 4
