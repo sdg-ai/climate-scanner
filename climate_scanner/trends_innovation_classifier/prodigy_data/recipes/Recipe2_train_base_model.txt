@@ -1,0 +1,13 @@
+# Recipe 2 - This is mainly to train an initial model by selecting the sentences with the keywords (generated in the previous recipe). The more exhaustive keywords are a better model can be trained.
+
+PRODIGY_PORT=8084 nohup prodigy textcat.teach AI_Words en_core_web_sm prodigyData/AI_TrainingData.jsonl --label "Artificial Intelligence" --patterns prodigyData/AI_Seed_Word_Patterns.jsonl > AIwordsOut.out 2>&1 &
+
+# Description:
+
+# PRODIGY_PORT - use the specific port for the task.
+# textcat.teach - prodigy recipe to train a base model
+# AI_Words - the name of the dataset
+# en_core_web_sm - model for embeddings
+# AI_TrainingData.jsonl - training data formatted in JSONL format (use the GitHub function to generate prodigy formatted dataset).
+# label - label for this call.
+# patterns - keywords generated using recipe 1 to further select specific category based sentences.

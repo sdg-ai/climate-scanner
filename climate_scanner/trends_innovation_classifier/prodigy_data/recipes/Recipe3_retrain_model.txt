@@ -1,0 +1,12 @@
+# Recipe 3 - This is mainly to retrain the model for that category using the annotations gathered using recipe 2.
+
+PRODIGY_PORT=8084 prodigy train --textcat-multilabel AI_Words --label-stats --verbose --eval-split 0.2 model/AI-model
+
+# Description:
+
+# PRODIGY_PORT - use specific port for the task.
+# textcat_multilabel - retraining the model with the annotation data.
+# AI_Words - dataset used for annotations in recipe 2.
+# eval_split - 80% train 20% test.
+# AI-model - model used.
+# This recipe will give the performance Precision / Recall / F-Score for the class.
