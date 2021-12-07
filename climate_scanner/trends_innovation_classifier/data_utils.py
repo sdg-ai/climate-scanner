@@ -44,9 +44,9 @@ def load_data():
 def pull_categoryData(inputData,category:str):
     """
     A function that filters a raw training dataset and generates a dataset for a specified category.
-    Arguments: inputData - the raw training dataset
-               category - the specified category   
-    :return: outputData - raw training dataset for the specified category.
+    Arguments: inputData - jsonl file - List of dictionaries containing the raw training dataset 
+               category - Str - Free text of the specified category Ex: "Artificial Intelligence" 
+    :return: outputData - jsonl file - List of dictionaries containing the raw training dataset for the specified category
     """
     outputData = []
     for i,d in enumerate(inputData):
@@ -76,8 +76,8 @@ def doc_to_sentence(text:str):
 def build_trainingData(inputData):
     """
     Training dataset builder. Slides through the provided dataset, creating sets of three sentences (previous, current, next) per sentence. 
-    Arguments: inputData - the provided dataset from which to generate the prodigy training data.
-    :return: outputData - the generated training dataset grouped into sets of three sentences.
+    Arguments: inputData - jsonl file - List of dictionaries from which to generate the prodigy training data.
+    :return: outputData - jsonl file - List of dictionaries containing the generated training dataset grouped into sets of three sentences.
     """    
     outputText = {}
     outputData = []
@@ -161,6 +161,8 @@ def build_trainingData(inputData):
 def format_outputData(outputData:list):
     """
     A function which formats the resulting training data for Prodigy.
+    Arguments: outputData - jsonl file - List of dictionaries containing the training dataset 
+    :return: prodigyData - jsonl file - List of dictionaries containing the training dataset formatted for prodigy
     """
     
     outputText,metaData = {},{}
@@ -187,6 +189,7 @@ def format_outputData(outputData:list):
 def save_outputData(outputData:list):
     """
     A function which writes the resulting training data from a given list of dictionaries to file.
+    Arguments: outputData: jsonl file - List of dictionaries containing the training dataset
     """
     
     params = load_params()
