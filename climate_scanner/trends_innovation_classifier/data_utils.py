@@ -7,10 +7,6 @@ import math
 _ROOT = os.path.abspath(os.path.dirname(__file__))
 
 
-# # loading config params
-# with open(os.path.join(_ROOT, "data", "config.yml")) as f:
-#     params = yaml.load(f, Loader=yaml.FullLoader)
-
 
 def load_params():
     """
@@ -22,13 +18,6 @@ def load_params():
     f.close()
     return params
 
-
-# def load_data():
-#     """
-#     A Data loader function which reads data from location.
-#     :return: input vectors, labels, vocabulary.
-#     """
-#     pass
 
 
 def load_data():
@@ -53,6 +42,12 @@ def load_data():
 
 
 def pull_categoryData(inputData,category:str):
+    """
+    A function that filters a raw training dataset and generates a dataset for a specified category.
+    Arguments: inputData - the raw training dataset
+               category - the specified category   
+    :return: outputData - raw training dataset for the specified category.
+    """
     outputData = []
     for i,d in enumerate(inputData):
         if category in d['category']:
@@ -79,6 +74,11 @@ def doc_to_sentence(text:str):
 
 
 def build_trainingData(inputData):
+    """
+    Training dataset builder. Slides through the provided dataset, creating sets of three sentences (previous, current, next) per sentence. 
+    Arguments: inputData - the provided dataset from which to generate the prodigy training data.
+    :return: outputData - the generated training dataset grouped into sets of three sentences.
+    """    
     outputText = {}
     outputData = []
     params = load_params()
@@ -178,8 +178,6 @@ def format_outputData(outputData:list):
         else:
             outputText['sent_end_pos']=d.get('next_pos')[1]
         outputText['title'] = d.get('title')
-        outputText['category'] = d.get('category')
-        outputText['climate_scanner'] = d.get('climate_scanner')
         metaData["meta"]=outputText
         metaData["text"]=d.get('prev_text')+' '+d.get('curr_text')+' '+d.get('next_text')
         prodigyData.append(metaData.copy())
@@ -196,7 +194,8 @@ def save_outputData(outputData:list):
     
     with open(outputFile, 'w', encoding='utf-8') as f:
         for line in outputData:
-            json.dump(line,f, indent="")
+            json.dump(line,f, indent=None)
+            f.write('\n')
             
 
 def data_processing(text:str) -> str:
