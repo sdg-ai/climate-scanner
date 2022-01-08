@@ -3,6 +3,7 @@ import yaml
 import nltk
 import json
 import math
+import re
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,7 +18,6 @@ def load_params():
         params = yaml.load(f, Loader=yaml.FullLoader)
     f.close()
     return params
-
 
 
 def load_data():
@@ -195,20 +195,22 @@ def format_outputData(outputData:list):
         return prodigyData
 
             
-def save_outputData(outputData:list):
+def save_outputData(outputData:list,categoryName:str):
     """
     A function which writes the resulting training data from a given list of dictionaries to file.
     Arguments: outputData: jsonl file - List of dictionaries containing the training dataset
+               categoryName: text string - The category that the training set belongs to
     """
     
     params = load_params()
-    outputFile = params['data']['path_to_trainingData']+ params['pre_training']['output_fileName']
+    categoryName = re.sub("/", "_",re.sub(" ", "_", categoryName.lower()))
+    outputFile = params['data']['path_to_trainingData'] + categoryName + "_raw_data.jsonl"
     
     with open(outputFile, 'w', encoding='utf-8') as f:
         for line in outputData:
             json.dump(line,f, indent=None)
             f.write('\n')
-            
+
 
 def data_processing(text:str) -> str:
     """
