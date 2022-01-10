@@ -7,7 +7,6 @@ data:
 pre_training:
   num_sentences: 3  
   input_fileName: "training_data.jsonl"
-  output_fileName: "trainingData.jsonl"
 
 config:
   n_epoch: 4
