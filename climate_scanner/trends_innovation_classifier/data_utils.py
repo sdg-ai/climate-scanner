@@ -203,7 +203,7 @@ def save_outputData(outputData:list,categoryName:str):
     """
     
     params = load_params()
-    categoryName = re.sub("/", "_",re.sub(" ", "_", categoryName.lower()))
+    categoryName = re.sub("/", "_",re.sub(" ", "_", re.sub("-", "_", categoryName.lower())))
     outputFile = params['data']['path_to_trainingData'] + categoryName + "_raw_data.jsonl"
     
     with open(outputFile, 'w', encoding='utf-8') as f:
