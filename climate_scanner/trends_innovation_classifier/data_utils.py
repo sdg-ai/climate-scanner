@@ -4,6 +4,9 @@ import nltk
 import json
 import math
 import re
+import pandas as pd
+import numpy as np
+
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -76,6 +79,48 @@ def doc_to_sentence(text:str):
     return split_sentences
 
 
+def get_sent_len(x):
+    """
+    Counts the number of sentences in the given text. Utilizes the doc_to_sentence() function to generate sentences from the given text.
+    Arguments: Str - Free text Ex: Article.
+    :return: Int - Number of sentences in the text.
+    """
+    sentences = doc_to_sentence(x)
+    return len(sentences)
+
+
+def remove_outlier_articles(inputData,minSentences):
+    """
+    Removes (outlier) articles whose sentence count is below the specified threshold.
+    Arguments: inputData - jsonl file - List of dictionaries containing the prodigy training data.
+    :return: yArticleData - jsonl file - List of dictionaries with the outliers removed.
+    """    
+    df = pd.DataFrame(inputData)
+    df['sentence_count']=df['text'].apply(lambda x: get_sent_len(x))
+    yArticleData = df[(df.sentence_count > minSentences)]
+    yArticleData = yArticleData.drop('sentence_count', 1)
+    yArticleData.to_json(r'yArticleData.jsonl',orient='records', lines=True)
+    return yArticleData.to_dict('records')
+
+
+def remove_outlier_sentences(inputData,stdThreshold):
+    """
+    Removes (outlier) sentences whose standard deviation is below the specified threshold.
+    Arguments: inputData - jsonl file - List of dictionaries containing string indices and text.
+    :return: ySentenceData - jsonl file - List of dictionaries with the outliers removed.
+    """    
+    df = pd.DataFrame(inputData)
+    df['word_count']=df['text'].apply(lambda x: len(str(x).split()))
+    article_text = df['word_count']
+    mean_data = np.mean(article_text)
+    std_data = np.std(article_text)
+    minThreshold = mean_data - (stdThreshold*std_data)
+    ySentenceData = df[(df.word_count >= minThreshold)]
+    ySentenceData = ySentenceData.drop('word_count', 1)
+    ySentenceData.to_json(r'ySentenceData.jsonl',orient='records', lines=True)
+    return ySentenceData.to_dict('records')
+
+
 def build_trainingData(inputData):
     """
     Training dataset builder. Slides through the provided dataset, creating sets of three sentences (previous, current, next) per sentence. 
@@ -86,8 +131,9 @@ def build_trainingData(inputData):
     outputData = []
     params = load_params()
     num_sentences = params['pre_training']['num_sentences']
+    std_thr_sentences = params['pre_training']['std_thr_sentences']
     
-    if not all(k in inputData[0].keys() for k in ('text','id','title','category','climate_scanner')):
+    if not all(k in inputData[0].keys() for k in ('id','title','text','category','climate_scanner')):
         print("The provided dataset is missing one or more required keys!")
     else:
         for d in inputData:
@@ -96,7 +142,9 @@ def build_trainingData(inputData):
             inputText = d.get('text') 
             outputText['id'] = d.get('id')
             outputText['title'] = d.get('title')
+            inputText = data_processing(inputText)
             splitText = doc_to_sentence(inputText)
+            splitText = remove_outlier_sentences(splitText,std_thr_sentences)
             for st in splitText:
                 sent_id = count
                 sent_pos = st.get('string_indices')
@@ -218,11 +266,18 @@ def data_processing(text:str) -> str:
     Arguments: Str - Free Text Ex: Title / Document / Article etc.
     :return: Str - Cleaned text
     """
-    text = text.lower()
-    text = text.replace(r'&lt;p&gt;', '')
-    text = text.replace(r'&amp;apos;','')
-    text = text.replace(r'<.*?>', '')
-    text = text.replace(r'http\S+', '')
+#     text = text.lower()
+#     text = text.replace(r'&lt;p&gt;', '')
+#     text = text.replace(r'&amp;apos;','')
+#     text = text.replace(r'<.*?>', '')
+#     text = text.replace(r'http\S+', '')
+    text = text.replace(r'\.+', ".")
+    
+    replacement_dict={"e.t.c.":"etc","e.g.":"eg","i.e.":"ie"}
+    for key,value in replacement_dict.items():
+        if key in text:
+            text=text.replace(key,value) # Replace keys with values in replacement_dict
+            
     return text
 
 
