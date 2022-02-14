@@ -271,12 +271,9 @@ def data_processing(text:str) -> str:
 #     text = text.replace(r'&amp;apos;','')
 #     text = text.replace(r'<.*?>', '')
 #     text = text.replace(r'http\S+', '')
+
+    text = re.sub(r"(?<!\w)([A-Za-z])\.", r"\1", text)
     text = text.replace(r'\.+', ".")
-    
-    replacement_dict={"e.t.c.":"etc","e.g.":"eg","i.e.":"ie"}
-    for key,value in replacement_dict.items():
-        if key in text:
-            text=text.replace(key,value) # Replace keys with values in replacement_dict
             
     return text
 
