@@ -142,7 +142,6 @@ def build_trainingData(inputData):
             inputText = d.get('text') 
             outputText['id'] = d.get('id')
             outputText['title'] = d.get('title')
-            inputText = data_processing(inputText)
             splitText = doc_to_sentence(inputText)
             splitText = remove_outlier_sentences(splitText,std_thr_sentences)
             for st in splitText:
