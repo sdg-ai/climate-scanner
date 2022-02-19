@@ -6,8 +6,9 @@ data:
   
 pre_training:
   num_sentences: 3  
+  article_min_sentences: 5
+  std_thr_sentences: 1.2
   input_fileName: "training_data.jsonl"
-  output_fileName: "trainingData.jsonl"
 
 config:
   n_epoch: 4

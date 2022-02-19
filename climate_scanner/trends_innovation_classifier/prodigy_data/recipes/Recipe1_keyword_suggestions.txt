@@ -1,0 +1,14 @@
+
+# Recipe 1 - This is mainly to get suggestions on the keywords relevant to a particular category. We are using a pre-trained model to get these suggestions (since, our categories are generic). We think we have good suggestions with this model but it can be further explored.
+
+PRODIGY_PORT=8084 PRODIGY_CONFIG_OVERRIDES='{"validate": false}' nohup prodigy sense2vec.teach AI_Seed_Words model/s2v_old --seeds "artificial intelligence, machine learning, natural language processing, supervised learning, deep learning" > AIseedsOut.out 2>&1 &
+
+# Description:
+
+# PRODIGY_PORT - please use the specific port assigned to your task.
+# PRODIGY_CONFIG_OVERRIDES - to override any generic settings in the configuration. Here we do validate - false to ensure no input is missed because of formats.
+# sense2vec.tech - is the prodigy model or recipe
+# AI_Seed_Words - name of the dataset
+# models/s2v_old - is the selected model to generate embeddings.
+# seeds - seed words for the category
+# output location - AISeedsOut.out is the name of the output (log) file.
