@@ -7,7 +7,7 @@ nlp = spacy.load('en_core_web_lg')
 
 # Set via environment variables
 os.getenv('user_key')
-# user_key = ''
+user_key = 'beejatbmicwzpxudjxxslszpidsjep'
 headers = {
 
     'Content-Type': 'application/x-www-form-urlencoded'
