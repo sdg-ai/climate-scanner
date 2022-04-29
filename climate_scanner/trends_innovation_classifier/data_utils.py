@@ -31,7 +31,7 @@ def load_data():
     
     inputData, inputCategories, inputText = [], [], []
     params = load_params()
-    inputFile = params['data']['path_to_trainingData']+ params['pre_training']['input_fileName']
+    inputFile = params['data']['path_to_raw_data']+ params['pre_training']['input_fileName']
     
     with open(inputFile, 'r', encoding='utf-8') as f:
         for line in f:
@@ -251,7 +251,7 @@ def save_outputData(outputData:list,categoryName:str):
     
     params = load_params()
     categoryName = re.sub("/", "_",re.sub(" ", "_", re.sub("-", "_", categoryName.lower())))
-    outputFile = params['data']['path_to_trainingData'] + categoryName + "_raw_data.jsonl"
+    outputFile = params['data']['path_to_cleaned_data'] + categoryName + "_raw_data.jsonl"
     
     with open(outputFile, 'w', encoding='utf-8') as f:
         for line in outputData:

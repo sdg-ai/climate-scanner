@@ -2,14 +2,35 @@ data:
   path_to_data: "path to data"
   path_to_model: "path to model bin"
   input_coordinator: ["ID","title","doc","climate_scanner","climate_scanner_prob"]
-  path_to_trainingData: "data\\trainingData\\"
+  path_to_raw_data: "data\\raw_data\\"
+  path_to_cleaned_data: "data\\cleaned_data\\c_cleaned"
+  path_to_annotated_data: "data\\annotated_data\\"
+  path_to_fasttext_data: "data\\fasttext_data\\"
+  path_to_fasttext_training_data: "data\\fasttext_data\\train\\"
+  path_to_fasttext_test_data: "data\\fasttext_data\\test\\"
+  path_to_fasttext_validation_data: "data\\fasttext_data\\valid\\"
+  path_to_fasttext_individual_models: "model\\fasttext\\individual_models\\"
+  path_to_fasttext_combined_model: "model\\fasttext\\combined_model\\"
+  
   
 pre_training:
   num_sentences: 3  
   article_min_sentences: 5
   std_thr_sentences: 1.2
-  input_fileName: "training_data.jsonl"
+  input_fileName: "raw_data.jsonl"
+
+fasttext:
+  train_test_valid_ratio: [0.8,0.2,0]
+  lr: 0.01
+  epoch: 25
+  wordNgrams: 2
+  minn: 5
+  dim: 300
+  loss: 'softmax'
+  thread: 14
+  bucket: 200000
 
 config:
   n_epoch: 4
   lr: 0.01
+  
