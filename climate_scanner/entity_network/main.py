@@ -7,12 +7,13 @@ Created on Wed Apr  6 11:04:54 2022
 """
 
 from entity_extraction import test_code
-from neo4j_model import GraphConstructor
+#from neo4j_model import GraphConstructor
 
 
 def upload_sample_data():
 	entities = test_code()
-	graph = GraphConstructor(entities)
+	print(entities)
+	#graph = GraphConstructor(entities)
 
 def sample_queries():
 	pass

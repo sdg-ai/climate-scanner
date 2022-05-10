@@ -23,7 +23,7 @@ class Node(StructuredNode):
 	wiki_classes = name = StringProperty(required=True, unique_index=True)
 	url = name = StringProperty(required=True, unique_index=True)
 	dbpedia_uri = name = StringProperty(required=True, unique_index=True)
-	related_to = Relationship('Node', 'rel', cardinality=ZeroOrMore, model=BasicRel)
+	related_to = Relationship('Node', 'RELATED_TO', cardinality=ZeroOrMore, model=BasicRel)
 
 
 
@@ -32,6 +32,9 @@ class GraphConstructor:
 	def __init__(self, entities):
 		self.nodes = []
 		self.create_nodes(entities)
+
+	def define_rels(self):
+		pass
 
 	def create_nodes(self, entities):
 		for ann in entities:
