@@ -98,6 +98,31 @@ class GraphConstructor:
 
 		return success
 
+	def update_node(self, uid, data):
+
+		success = False
+		if(uid == None):
+			return success
+
+		try:
+			#TODO: Find a more practical way to update
+			node = Node.nodes.get(uid=uid)
+			node.name = data['name'] if 'name' in data else node.name
+			node.entity = data['entity'] if 'entity' in data else node.entity
+			node.entity_type = data['entity_type'] if 'entity_type' in data else node.entity_type
+			node.wiki_classes = data['wiki_classes'] if 'wiki_classes' in data else node.wiki_classes
+			node.url = data['url'] if 'url' in data else node.url
+			node.dbpedia_uri = data['dbpedia_uri'] if 'dbpedia_uri' in data else node.dbpedia_uri
+			node.save()
+
+			success = True
+
+		except Exception as e:
+			print(str(e))
+
+		return success
+
+
 
 
 

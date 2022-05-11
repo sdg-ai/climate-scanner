@@ -13,7 +13,7 @@ from flask_restplus import Api, Resource, fields
 
 # Graph modules
 from neo4j_model import GraphConstructor
-graph = GraphConstructor()
+
 
 # Initialise application
 app = Flask(__name__)
@@ -32,6 +32,10 @@ api = Api(app=app, authorizations=authorizations)
 # Load in key from environment vars typically
 # SWAGGER_KEY = os.environ.get('SWAGGER_KEY')
 SWAGGER_KEY = '1234'
+
+
+# Initialize Graph Handler Object
+graph = GraphConstructor()
 
 
 ##############################################################################
@@ -101,6 +105,28 @@ graph_data = api.model('Graph Model', {
 					  cls_or_instance=fields.Arbitrary())
 })
 
+node_data = api.model('Node Model', {
+
+	'name': fields.String(
+		required=False, description="Name of the entity", example='Dubai'),
+
+	'entity': fields.String(
+		required=False, description="Entity identifier", example='GPE'),
+
+	'entity_type': fields.List(required=False, description="List of entity types",
+						  example=["City", "Settlement","Place"], cls_or_instance=fields.String),
+
+	'wiki_classes': fields.List(required=False, description="List of wiki classes",
+						 example=["city", "community","big city"], cls_or_instance=fields.String),
+
+
+	'url': fields.String(
+		required=False, description="URL of entity general info", example='http://en.wikipedia.org/wiki/Dubai'),
+
+	'dbpedia_uri': fields.String(
+		required=False, description="URL of entity info in dbpedia", example='http://dbpedia.org/resource/Dubai'),
+})
+
 
 # Method to get estimated revenue (in tsd. USD) from a given company headcount and
 # optional industry, country, start year and start month.
@@ -161,7 +187,6 @@ class CaseStrings(Resource):
 @name_space.route('/nodes/')
 class ManageNodes(Resource):
 
-	# Defining a get rest functionality to get disambiguated location object
 	@name_space.doc(security='apikey')
 	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'},
 			  params={'entityType': 'Specify the entity type to filter the resulting nodes. Common entity types are PERSON, ORG, GPE'})
@@ -192,7 +217,7 @@ class ManageNodes(Resource):
 	@name_space.doc(security='apikey')
 	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'})
 	@api.expect(graph_data, validate=False)
-	#@key_required
+	@key_required
 	def post(self):
 		"""Create nodes and connections
 		<strong>Implementation Notes</strong>.
@@ -217,9 +242,37 @@ class ManageNodes(Resource):
 			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
 
 
-
+	@name_space.doc(security='apikey')
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'},
+			  params={'uid': 'Unique node identifier'})
+	@api.expect(node_data, validate=False)
+	@key_required
 	def put(self):
-		pass
+		"""Update node properties
+		<strong>Implementation Notes</strong>.
+		<p>
+		Provide the node uid as param and specify the fields to modify with the new data
+		 in the body of the request.
+		</p>
+		"""
+		try:
+			uid = request.args.get('uid')
+			data = api.payload
+			success = graph.update_node(uid,data)
+			#success = True
+
+			if(success):
+				return {'status': 200, 'message': 'Node updated successfully'}
+			else:
+				name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except KeyError as e:
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except Exception as e:
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
+
+
 
 	def delete(self):
 		pass
