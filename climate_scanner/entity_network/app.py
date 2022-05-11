@@ -13,6 +13,7 @@ from flask_restplus import Api, Resource, fields
 
 # Graph modules
 from neo4j_model import GraphConstructor
+graph = GraphConstructor()
 
 # Initialise application
 app = Flask(__name__)
@@ -96,10 +97,7 @@ graph_data = api.model('Graph Model', {
 						  ['the Future Blockchain Summit', 'ORG',
 							 {'entityType': None, 'wiki_classes': None,
 							 'url': None, 'dbPediaIri': None}],
-						  ['Dubai', 'GPE', {'entityType': ['City', 'Settlement', 'PopulatedPlace', 'Place', 'AdministrativeRegion', 'Region'],
-							  'wiki_classes': ['city', 'administrative territorial entity', 'big city', 'city with millions of inhabitants', 'community'],
-							  'url': 'http://en.wikipedia.org/wiki/Dubai',
-							  'dbPediaIri': 'http://dbpedia.org/resource/Dubai'}]],
+						  ['Ford', 'ORG', {'entityType': ['Agent', 'Organisation', 'Company'], 'wiki_classes': ['automobile manufacturer', 'sponsor', 'car brand', 'manufacturing company', 'legal person'], 'url': 'http://en.wikipedia.org/wiki/Ford_Motor_Company', 'dbPediaIri': 'http://dbpedia.org/resource/Ford_Motor_Company'}]],
 					  cls_or_instance=fields.Arbitrary())
 })
 
@@ -165,40 +163,58 @@ class ManageNodes(Resource):
 
 	# Defining a get rest functionality to get disambiguated location object
 	@name_space.doc(security='apikey')
-	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error'},
-			  params={'strings': 'Specify some strings to change casing on - list[str]',
-				 'mode': 'specify the casing mode, from ["upper", "lower", "title"], - str'})
-	@api.expect(casing_data, validate=False)
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'},
+			  params={'entityType': 'Specify the entity type to filter the resulting nodes. Common entity types are PERSON, ORG, GPE'})
 	@key_required
 	def get(self):
-		pass
+		"""Get nodes by entity type
+		<strong>Implementation Notes</strong>.
+		<p>
+		Get a list of nodes with all the associated properties. It is possible to filter
+		by entity type.
+		</p>
+		"""
+		try:
+
+			entity_type = request.args.get('entityType')
+			results = graph.get_nodes(entity_type)
+
+			return {'status': 200, 'nodes': results}
+
+		except KeyError as e:
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except Exception as e:
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
 
 
 	# Defining a get rest functionality to get disambiguated location object
 	@name_space.doc(security='apikey')
-	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error'})
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'})
 	@api.expect(graph_data, validate=False)
 	#@key_required
 	def post(self):
 		"""Create nodes and connections
 		<strong>Implementation Notes</strong>.
 		<p>
-		Insert entities as nodes to the graph and generates connections between each pair of nodes.
+		Insert entities as nodes to the graph and generates connections between each pair of nodes,
+		generating a fully connected graph.
 		</p>
 		"""
 		try:
 			data = api.payload
+			success = graph.create_nodes(data['entities'])
 
-			results = []
-			graph = GraphConstructor(data['entities'])
-
-			return {'status': 200, 'results': results}
+			if(success):
+				return {'status': 200, 'message': 'Nodes and relationships created successfully'}
+			else:
+				name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
 
 		except KeyError as e:
-			name_space.abort(500,  status="Could not retrieve necessary payload information", statusCode="500")
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
 
 		except Exception as e:
-			name_space.abort(400,  status="Error within app: " + str(e), statusCode="400")
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
 
 
 
