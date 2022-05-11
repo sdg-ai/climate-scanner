@@ -20,6 +20,7 @@ class BasicRel(StructuredRel):
 	name = AliasProperty(to='rel')
 
 class Node(StructuredNode):
+	#TODO: Rename clase to Entity
 	uid = UniqueIdProperty()
 	name = StringProperty(required=True, unique_index=True)
 	entity = StringProperty(required=True, unique_index=False)
@@ -105,15 +106,39 @@ class GraphConstructor:
 			return success
 
 		try:
-			#TODO: Find a more practical way to update
-			node = Node.nodes.get(uid=uid)
-			node.name = data['name'] if 'name' in data else node.name
-			node.entity = data['entity'] if 'entity' in data else node.entity
-			node.entity_type = data['entity_type'] if 'entity_type' in data else node.entity_type
-			node.wiki_classes = data['wiki_classes'] if 'wiki_classes' in data else node.wiki_classes
-			node.url = data['url'] if 'url' in data else node.url
-			node.dbpedia_uri = data['dbpedia_uri'] if 'dbpedia_uri' in data else node.dbpedia_uri
-			node.save()
+			#TODO: Find a more practical way to update, maybe a loop iterating over the keys
+			node = Node.nodes.get_or_none(uid=uid)
+
+			if(node != None):
+				node.name = data['name'] if 'name' in data else node.name
+				node.entity = data['entity'] if 'entity' in data else node.entity
+				node.entity_type = data['entity_type'] if 'entity_type' in data else node.entity_type
+				node.wiki_classes = data['wiki_classes'] if 'wiki_classes' in data else node.wiki_classes
+				node.url = data['url'] if 'url' in data else node.url
+				node.dbpedia_uri = data['dbpedia_uri'] if 'dbpedia_uri' in data else node.dbpedia_uri
+				node.save()
+
+				success = True
+
+			else:
+				# Node doesn't exist
+				#TODO: Throw an exception here
+				success = False
+
+		except Exception as e:
+			print(str(e))
+
+		return success
+
+	def delete_node(self, uid):
+		success = False
+		if(uid == None):
+			return success
+
+		try:
+			node = Node.nodes.get_or_none(uid=uid)
+			if(node != None):
+				node.delete()
 
 			success = True
 

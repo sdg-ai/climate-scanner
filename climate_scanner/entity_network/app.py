@@ -128,68 +128,12 @@ node_data = api.model('Node Model', {
 })
 
 
-# Method to get estimated revenue (in tsd. USD) from a given company headcount and
-# optional industry, country, start year and start month.
-@name_space.route('/casing/')
-class CaseStrings(Resource):
-	# Defining a get rest functionality to get disambiguated location object
-	@name_space.doc(security='apikey')
-	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error'},
-			  params={'strings': 'Specify some strings to change casing on - list[str]',
-				 'mode': 'specify the casing mode, from ["upper", "lower", "title"], - str'})
-	@api.expect(casing_data, validate=False)
-	@key_required
-	def post(self):
-		# Triple quoted comments around methods here will display in the swagger UI. You can use markup to
-		# Generate nice looking descriptions here
-		"""Returns an array of strings with specified casing.
-		<strong>Implementation Notes</strong>.
-		<p>
-		Send a list of strings and a casing mode to this api, the magical  machine will do it's work and return the
-		strings cased as specified. Casings include the following:
-		<ul> <li>upper (upper cased)</li>
-		<li>lower (lower cased)</li>
-		<li>title (title cased)</li></ul></p>
-		"""
-		try:
-			data = api.payload
-
-			results = []
-
-			if data['mode'] == 'upper':
-				for item in data['strings']:
-					results.append(item.upper())
-
-
-			elif data['mode'] == 'lower':
-				for item in data['strings']:
-					results.append(item.upper())
-
-
-
-			elif data['mode'] == 'title':
-				for item in data['strings']:
-					results.append(item.title())
-
-			else:
-				raise ValueError('Please select mode value from ["upper", "lower", "title"]')
-
-			return {'status': 200, 'results': results}
-
-		except KeyError as e:
-			name_space.abort(500,  status="Could not retrieve necessary payload information", statusCode="500")
-
-		except Exception as e:
-			name_space.abort(400,  status="Error within app", statusCode="400")
-
-# Method to get estimated revenue (in tsd. USD) from a given company headcount and
-# optional industry, country, start year and start month.
 @name_space.route('/nodes/')
 class ManageNodes(Resource):
 
 	@name_space.doc(security='apikey')
 	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'},
-			  params={'entityType': 'Specify the entity type to filter the resulting nodes. Common entity types are PERSON, ORG, GPE'})
+			  params={'entityType': 'Specify the entity type to filter the resulting nodes. Common entity types are PERSON, ORG, GPE. Leave empty for retrieving all the nodes'})
 	@key_required
 	def get(self):
 		"""Get nodes by entity type
@@ -273,9 +217,33 @@ class ManageNodes(Resource):
 			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
 
 
-
+	@name_space.doc(security='apikey')
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'},
+			  params={'uid': 'Unique node identifier'})
+	@key_required
 	def delete(self):
-		pass
+		"""Delete node
+		<strong>Implementation Notes</strong>.
+		<p>
+		Provide the node uid as param and the node will be deleted.
+		All the relationships with other nodes are deleted as well.
+		</p>
+		"""
+		try:
+			uid = request.args.get('uid')
+			success = graph.delete_node(uid)
+
+			if(success):
+				return {'status': 200, 'message': 'Node deleted successfully'}
+			else:
+				name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except KeyError as e:
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except Exception as e:
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
+
 
 
 if __name__ == '__main__':
