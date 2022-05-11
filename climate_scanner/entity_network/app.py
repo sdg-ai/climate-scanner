@@ -10,6 +10,10 @@ from flask import Flask, request
 from functools import wraps
 from flask_restplus import Api, Resource, fields
 
+
+# Graph modules
+from neo4j_model import GraphConstructor
+
 # Initialise application
 app = Flask(__name__)
 
@@ -85,12 +89,17 @@ casing_data = api.model('Casing Model', {
 graph_data = api.model('Graph Model', {
 	'entities': fields.List(required=True,
 					  description="List of incoming entities",
-					  example=[['Scott Simone', 'PERSON',
-								 {'entityType': None, 'wiki_classes': None,
-								'url': None, 'dbPediaIri': None}],
-								['Chris Ballinger', 'PERSON',
-							      {'entityType': None, 'wiki_classes': None,
-								'url': None, 'dbPediaIri': None}]],
+					  example=[
+						  ['Chris Ballinger', 'PERSON',
+							 {'entityType': None, 'wiki_classes': None,
+							 'url': None, 'dbPediaIri': None}],
+						  ['the Future Blockchain Summit', 'ORG',
+							 {'entityType': None, 'wiki_classes': None,
+							 'url': None, 'dbPediaIri': None}],
+						  ['Dubai', 'GPE', {'entityType': ['City', 'Settlement', 'PopulatedPlace', 'Place', 'AdministrativeRegion', 'Region'],
+							  'wiki_classes': ['city', 'administrative territorial entity', 'big city', 'city with millions of inhabitants', 'community'],
+							  'url': 'http://en.wikipedia.org/wiki/Dubai',
+							  'dbPediaIri': 'http://dbpedia.org/resource/Dubai'}]],
 					  cls_or_instance=fields.Arbitrary())
 })
 
@@ -180,10 +189,8 @@ class ManageNodes(Resource):
 		try:
 			data = api.payload
 
-			results = [data]
-
-
-			# AQUI VA A GRAPHQL
+			results = []
+			graph = GraphConstructor(data['entities'])
 
 			return {'status': 200, 'results': results}
 
@@ -191,7 +198,7 @@ class ManageNodes(Resource):
 			name_space.abort(500,  status="Could not retrieve necessary payload information", statusCode="500")
 
 		except Exception as e:
-			name_space.abort(400,  status="Error within app: " + e.with_traceback(), statusCode="400")
+			name_space.abort(400,  status="Error within app: " + str(e), statusCode="400")
 
 
 
