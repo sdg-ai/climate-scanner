@@ -15,8 +15,7 @@ when considering innovations and trends which relate to climate change. The libr
 ## Installation/Configuration
 
 ```
-git clone https://github.com/Cognism/churn-score.git
-cd churn-score
+git clone https://github.com/sdg-ai/climate-scanner.gt
 pip3 install -r requirements.txt
 python3 setup.py install
 ```
