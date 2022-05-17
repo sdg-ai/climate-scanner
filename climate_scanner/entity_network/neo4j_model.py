@@ -5,12 +5,17 @@ Created on Wed Apr  6 11:36:48 2022
 
 @author: cirogam
 """
-
+import os
 from neomodel import (config, StructuredNode, StringProperty,
                       Relationship, ZeroOrMore,
                       StructuredRel, AliasProperty, UniqueIdProperty)  # work with neo4j
 
-config.DATABASE_URL = "bolt://neo4j:test@localhost:7687"
+db_name = os.environ.get('TRENDSCANNER_GRAPH_DB_NAME')
+db_password = os.environ.get('TRENDSCANNER_GRAPH_DB_PASSWORD')
+db_host = os.environ.get('TRENDSCANNER_GRAPH_NEO4J_HOST')
+
+url = "bolt://" + db_name + ":" + db_password + "@" + db_host + ":7687"
+config.DATABASE_URL = url
 
 # TODO: Run query for setting unique name
 # TODO: Set logic for existing nodes
