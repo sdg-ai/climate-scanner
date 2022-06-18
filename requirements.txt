@@ -5,3 +5,6 @@ keras
 tensorflow
 pytest
 nltk
+pyyaml
+torch
+transformers

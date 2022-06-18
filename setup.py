@@ -36,7 +36,8 @@ setuptools.setup(
 
     # Project uses several external libs.
     install_requires=["numpy==1.19.2", "pandas", "scikit-learn",
-                    "keras", "tensorflow", "pytest"],
+                    "keras", "tensorflow", "pytest", "pyyaml", "torch",
+                      "transformers"],
 
     setup_requires=['spacy', 'boto3', 'nltk'],
 
