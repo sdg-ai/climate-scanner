@@ -7,6 +7,7 @@ nlp = spacy.load('en_core_web_lg')
 
 # Set via environment variables
 os.getenv('user_key')
+# user_key = ''
 headers = {
 
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -73,7 +74,7 @@ def get_entities(extraction_string,
                 max_mention_entropy,                   # cause all highly ambiguous mentions to be ignored float (default -1)
                 max_targets_per_mention,               # to use only the most frequent x candidate annotations for each mention (default x=20)
                 wiki_data_classes,                     # wikiDataClasses (true or false)
-                wiki_data_class_ids):                   # wikiDataClassIds (true or false)
+                wiki_data_class_ids):                  # wikiDataClassIds (true or false)
 
 
 

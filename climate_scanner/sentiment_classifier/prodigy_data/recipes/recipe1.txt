@@ -1,0 +1,14 @@
+
+Text Classification -Manual recipe
+
+Manually annotate categories that apply to a text. If only one label is set, the classification interface is used. 
+If more than one label is specified, the choice interface is used and categories are added as multiple choice options.
+If the --exclusive flag is set, categories become mutually exclusive, meaning that only one can be selected during annotation.
+
+Recipe: PRODIGY_PORT=8080 nohup prodigy textcat.manual sentiment_part_1 data_500_30000_shuffled_formatted.json --label POSITIVE,NEGATIVE,NEUTRAL
+
+where: 
+textcat.manual                         -> name of the recipe in prodigy
+sentiment_part_1                       -> Prodigy dataset to save annotation to
+data_500_30000_shuffled_formatted.json -> Path to text source / data source
+--label                                -> category label

@@ -1,7 +1,14 @@
 data:
-  path_to_logs : "logs\\scalars\\"
-  path_to_checkpoints : "checkPoints\\"
-  path_to_model : "saved_models\\"
+  path_to_logs : "Path to log scalars"
+  path_to_checkpoints : "path for checkpoints"
+  path_to_model : "path to saved model"
+  path_to_trainingData : "data/trainingData" 
+  input_coordinator: ["ID","title","doc","climate_scanner","climate_scanner_prob"]
+
+pre_training:
+  num_sentences: 3
+  input_fileName: "training_data.jsonl"
+  output_fileName: "trainingData.jsonl"
 
 pre_processing:
   vocab_size : 13703

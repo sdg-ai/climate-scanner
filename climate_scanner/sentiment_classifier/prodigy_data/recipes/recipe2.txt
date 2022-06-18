@@ -1,0 +1,18 @@
+
+Text Classification - textcat.teach (Active Learning)
+
+
+Collect the best possible training data for a text named entity recognition model with the model in the loop. Based on your annotations, Prodigy will decide which questions to ask next. 
+All annotations will be stored in the database. If a patterns file is supplied via the --patterns argument, the matches will be included in the stream and the matched spans are highlighted, 
+so you’re able to tell which words or phrases the selection was based on. 
+Note that the exact pattern matches have no influence when updating the model – they’re only used to help pre-select examples for annotation.
+
+Recipe: PRODIGY_PORT=8080 nohup prodigy textcat.teach sentiment model-last data_500_30000_shuffled_formatted.json --label POSITIVE,NEGATIVE,NEUTRAL
+
+Where:
+
+textcat.teach                          -> name of the recipe in prodigy
+sentiment                              -> Prodigy dataset to save annotation to
+model-last                             -> Path to saved spacy model
+data_500_30000_shuffled_formatted.json -> Path to text source / data source
+--label                                -> category label
