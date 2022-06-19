@@ -1,0 +1,52 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.1.5,<3.2.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"135539605",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null
+  },
+  "labels":{
+    "textcat_multilabel":[
+      "car_sharing"
+    ]
+  },
+  "pipeline":[
+    "textcat_multilabel"
+  ],
+  "components":[
+    "textcat_multilabel"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "cats_score":0.6777777778,
+    "cats_score_desc":"macro AUC",
+    "cats_micro_p":0.7083333333,
+    "cats_micro_r":0.7083333333,
+    "cats_micro_f":0.7083333333,
+    "cats_macro_p":0.7083333333,
+    "cats_macro_r":0.7083333333,
+    "cats_macro_f":0.7083333333,
+    "cats_macro_auc":0.6777777778,
+    "cats_f_per_type":{
+      "car_sharing":{
+        "p":0.7083333333,
+        "r":0.7083333333,
+        "f":0.7083333333
+      }
+    },
+    "cats_macro_auc_per_type":0.0,
+    "textcat_multilabel_loss":0.0389438152
+  }
+}

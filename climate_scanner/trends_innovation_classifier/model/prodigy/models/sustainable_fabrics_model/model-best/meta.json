@@ -1,0 +1,52 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.1.4,<3.2.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"006df1ae1",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null
+  },
+  "labels":{
+    "textcat_multilabel":[
+      "sustainable_fabrics"
+    ]
+  },
+  "pipeline":[
+    "textcat_multilabel"
+  ],
+  "components":[
+    "textcat_multilabel"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "cats_score":0.8803846154,
+    "cats_score_desc":"macro AUC",
+    "cats_micro_p":0.8878504673,
+    "cats_micro_r":0.9134615385,
+    "cats_micro_f":0.9004739336,
+    "cats_macro_p":0.8878504673,
+    "cats_macro_r":0.9134615385,
+    "cats_macro_f":0.9004739336,
+    "cats_macro_auc":0.8803846154,
+    "cats_f_per_type":{
+      "sustainable_fabrics":{
+        "p":0.8878504673,
+        "r":0.9134615385,
+        "f":0.9004739336
+      }
+    },
+    "cats_macro_auc_per_type":0.0,
+    "textcat_multilabel_loss":0.0192277942
+  }
+}

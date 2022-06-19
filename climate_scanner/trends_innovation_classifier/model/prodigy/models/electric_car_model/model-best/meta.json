@@ -1,0 +1,52 @@
+{
+  "lang":"en",
+  "name":"electric_car",
+  "version":"0.0.0",
+  "spacy_version":">=3.1.4,<3.2.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"006df1ae1",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null
+  },
+  "labels":{
+    "textcat_multilabel":[
+      "electric_car"
+    ]
+  },
+  "pipeline":[
+    "textcat_multilabel"
+  ],
+  "components":[
+    "textcat_multilabel"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "cats_score":0.8838709677,
+    "cats_score_desc":"macro AUC",
+    "cats_micro_p":0.8529411765,
+    "cats_micro_r":0.935483871,
+    "cats_micro_f":0.8923076923,
+    "cats_macro_p":0.8529411765,
+    "cats_macro_r":0.935483871,
+    "cats_macro_f":0.8923076923,
+    "cats_macro_auc":0.8838709677,
+    "cats_f_per_type":{
+      "electric_car":{
+        "p":0.8529411765,
+        "r":0.935483871,
+        "f":0.8923076923
+      }
+    },
+    "cats_macro_auc_per_type":0.0,
+    "textcat_multilabel_loss":0.0076761182
+  }
+}

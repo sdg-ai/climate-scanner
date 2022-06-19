@@ -364,7 +364,7 @@ class SentimentInterface:
 		self.model.to(device)
 		
 
-	def text_to_sentiment(self, input_from_trend_classifier):
+	def input_to_sentiment(self, input_from_trend_classifier):
 		# Method to run end-to-end sentiment classifier
 		# Args:
 		# input_from_trend_classifier -> list of dictionaries at index 0 we store article ID.
@@ -396,6 +396,29 @@ class SentimentInterface:
 		
 		return output
 
+	def text_to_sentiment(self, text_lst):
+		if isinstance(text_lst, str):
+			text_lst = [text_lst]
+
+		# preprocessing the text list
+		X_seq, X_mask = self.preProcess.pre_process_pipeline(text_lst)
+
+		# predicting
+		y_hat = self.model.predict(X_seq, X_mask, thresh=(0.45, 0.55))
+
+		# reformating y_proba and y_pred
+		# commenting for now
+		# y_pred = y_pred.squeeze().astype(int)
+		# y_proba = y_proba.squeeze().astype(float)
+
+		output = copy.deepcopy(input_from_trend_classifier)
+
+		for idx in range(1, len(output)):
+			# output[idx]['sentiment_class'] = y_pred[idx]
+			# output[idx]['sentiment_proba'] = y_proba[idx]
+			output[idx]['sentiment_class'] = y_hat[idx - 1][0]
+			output[idx]['sentiment_proba'] = y_hat[idx - 1][1]
+
 if __name__ == '__main__':	
     
 	x = SentimentInterface()
@@ -410,7 +433,7 @@ if __name__ == '__main__':
 										'text': 'windmills',
 										'string_prediction': ['building', '3-d printing'], 'string_prob': [0.9, 0.5]}]
 	#Now it may be poised to upend the apparel industry as well.
-	output = x.text_to_sentiment(input_from_trend_classifier=input_from_trend_classifier)
+	output = x.input_to_sentiment(input_from_trend_classifier=input_from_trend_classifier)
 	print("TEST:\n\n")
 	for i in range(1,len(output)):
 		print('TEXT: '+output[i]['text']+ '\nsentiment_class:  '+output[i]['sentiment_class'] + '\nProba: ' + str(round(output[i]['sentiment_proba'],6))+'\n\n')
