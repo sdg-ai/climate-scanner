@@ -4,6 +4,8 @@
 import requests
 import os
 import spacy
+import dotenv
+dotenv.load_dotenv()
 
 user_key = os.environ.get('TRENDSCANNER_ENTITY_EXTRACTION_KEY')
 #nlp = spacy.load('en_core_web_lg')

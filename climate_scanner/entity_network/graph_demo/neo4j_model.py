@@ -11,6 +11,8 @@ from neomodel import (config, StructuredNode, StringProperty,
                       Relationship, ZeroOrMore,
                       StructuredRel, AliasProperty, UniqueIdProperty)
 
+import dotenv
+dotenv.load_dotenv()
 db_name = os.environ.get('TRENDSCANNER_GRAPH_DB_NAME')
 db_password = os.environ.get('TRENDSCANNER_GRAPH_DB_PASSWORD')
 db_host = os.environ.get('TRENDSCANNER_GRAPH_NEO4J_HOST')
