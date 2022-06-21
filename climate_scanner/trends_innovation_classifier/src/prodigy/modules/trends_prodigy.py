@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from .data_utils import load_params
+from climate_scanner.trends_innovation_classifier.data_utils import load_params
 import glob
 from operator import itemgetter
 import spacy
