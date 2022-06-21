@@ -5,11 +5,14 @@
 from flask import Flask, request
 from functools import wraps
 from flask_restplus import Api, Resource, fields
+import os
 
 
 # Graph modules
-from neo4j_model import GraphConstructor
-from entity_extraction import EntityExtractor
+from climate_scanner.entity_network.graph_demo.neo4j_model import GraphConstructor
+from climate_scanner.entity_network.graph_demo.entity_extraction import EntityExtractor
+from climate_scanner.sentiment_classifier.sentiment_classifier import SentimentInterface
+from climate_scanner.trends_innovation_classifier.trends_innovation_classifier import TrendsInnovationClassifier
 
 
 # Initialise application
@@ -34,6 +37,8 @@ SWAGGER_KEY = '1234'
 # Initialize Graph Handler and Entity Extractor Objects
 graph = GraphConstructor()
 extractor = EntityExtractor()
+sentiment_model = SentimentInterface()
+trends_model = TrendsInnovationClassifier()
 
 
 ##############################################################################
@@ -68,8 +73,20 @@ def key_required(func):
 # Define a namespace. These are used to divide up different modules of the api
 # The api.namespace() function creates a new namespace with a URL prefix.
 # The description field will be used in the Swagger UI to describe this set of methods.
-name_space = api.namespace('TrendScanner Graph API',
+name_space = api.namespace('Entity Networks',
 							description='An api for testing the TrendScanner Graph Model.')
+
+name_space_1 = api.namespace('Sentiment',
+							description='An api for testing the TrendScanner Sentiment.')
+
+name_space_2 = api.namespace('Trends and Innovations',
+							description='An api for testing the TrendScanner Trends and innovations classification.')
+
+
+name_space_3 = api.namespace('Trendscanner Master Call',
+							description='An api for testing the TrendScanner Trends and innovations classification.')
+
+
 
 ##########################################################################################
 #
@@ -118,28 +135,35 @@ node_data = api.model('Node Model', {
 })
 
 
+# text_data = api.model('Text Model', {
+# 	'text': fields.String(
+# 		required=True, description="Text for processing", example='Sir Keir Starmer has urged the government to invest urgently in jobs that benefit the environment. ' \
+# 						 'The Labour leader wants £30bn spent to support up to 400,000 `green` jobs in manufacturing' \
+# 						 ' and low-carbon industries.' \
+# 						 'The government says it will create thousands of green jobs as part of its overall climate strategy.' \
+# 						 'But official statistics show no measurable increase in environment-based jobs in recent years.' \
+# 						 'Speaking to the BBC as he begins a two-day visit to Scotland, Sir Keir blamed this on a' \
+# 						 ' `chasm between soundbites and action`.' \
+# 						 'He and PM Boris Johnson are both in Scotland this week, showcasing their green credentials' \
+# 						 ' ahead of Novembers COP 26 climate summit in Glasgow.' \
+# 						 'Criticising the governments green jobs record, Sir Keir points to its decision to' \
+# 						 ' scrap support for solar power and onshore wind energy, and a scheme to help' \
+# 						 ' householders in England insulate their homes.' \
+# 						 'He said: `It’s the government’s failure to match its rhetoric with reality that’s ' \
+# 						 'led to this, They have used soundbites with no substance.' \
+# 						 '`They have quietly been unpicking and dropping critical' \
+# 						 ' commitments when it comes to the climate crisis and the future economy.' \
+# 						 '`It’s particularly concerning when it comes to COP 26.' \
+# 						 '`Leading by example is needed, but just when we need leadership' \
+# 						 ' from the prime minister on the global stage, here in the UK we have a prime' \
+# 						 ' minister who, frankly, is missing in action.`')
+# })
+
 text_data = api.model('Text Model', {
 	'text': fields.String(
-		required=True, description="Text for processing", example='Sir Keir Starmer has urged the government to invest urgently in jobs that benefit the environment. ' \
-						 'The Labour leader wants £30bn spent to support up to 400,000 “green” jobs in manufacturing' \
-						 ' and low-carbon industries.' \
-						 'The government says it will create thousands of green jobs as part of its overall climate strategy.' \
-						 'But official statistics show no measurable increase in environment-based jobs in recent years.' \
-						 'Speaking to the BBC as he begins a two-day visit to Scotland, Sir Keir blamed this on a' \
-						 ' "chasm between soundbites and action”.' \
-						 'He and PM Boris Johnson are both in Scotland this week, showcasing their green credentials' \
-						 ' ahead of Novembers COP 26 climate summit in Glasgow.' \
-						 'Criticising the governments green jobs record, Sir Keir points to its decision to' \
-						 ' scrap support for solar power and onshore wind energy, and a scheme to help' \
-						 ' householders in England insulate their homes.' \
-						 'He said: “It’s the government’s failure to match its rhetoric with reality that’s ' \
-						 'led to this, They have used soundbites with no substance.' \
-						 '“They have quietly been unpicking and dropping critical' \
-						 ' commitments when it comes to the climate crisis and the future economy.' \
-						 '“It’s particularly concerning when it comes to COP 26.' \
-						 '"Leading by example is needed, but just when we need leadership' \
-						 ' from the prime minister on the global stage, here in the UK we have a prime' \
-						 ' minister who, frankly, is missing in action."')
+		required=True, description="Text for processing", example="Lithium ion battery life has greatly improved electric transport. " \
+           "Electric motors can now run for hundreds of kilometers without needing to refuel. " \
+           "Car manufacturing is improving year on year. Elon Musk's company Tessla have been a big beneficent of these technological advances")
 })
 
 
@@ -324,6 +348,95 @@ class EntityGraphBuild(Resource):
 
 
 
+@name_space_1.route('/sentiment/')
+class SentimentEngine(Resource):
+
+	# Defining a get rest functionality
+	@name_space.doc(security='apikey')
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'})
+	@api.expect(text_data, validate=False)
+	@key_required
+	def post(self):
+		"""Score the sentiment of some text
+		<strong>Implementation Notes</strong>.
+		<p>
+		Send a text fragment in the body. Sentiment class and score will be returned.
+		</p>
+		"""
+		try:
+			data = api.payload
+			print(data['text'])
+			sentiment = sentiment_model.text_to_sentiment(data['text'])
+
+			return {'status': 200, 'sentiment': sentiment}
+
+		except KeyError as e:
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except Exception as e:
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
+
+
+@name_space_2.route('/trends/')
+class Trends(Resource):
+
+	# Defining a get rest functionality
+	@name_space.doc(security='apikey')
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'})
+	@api.expect(text_data, validate=False)
+	@key_required
+	def post(self):
+		"""Send a request to the trends and innovations classifier
+		<strong>Implementation Notes</strong>.
+		<p>
+		Send a text fragment in the body. Trends and innovations will be identified.
+		</p>
+		"""
+		try:
+			data = api.payload
+			print(data['text'])
+			trends = trends_model.demo_return(data['text'])
+			return {'status': 200,
+					'trends': trends}
+
+		except KeyError as e:
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except Exception as e:
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
+
+@name_space_3.route('/Master/')
+class Master(Resource):
+
+	# Defining a get rest functionality
+	@name_space.doc(security='apikey')
+	@api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'})
+	@api.expect(text_data, validate=False)
+	@key_required
+	def post(self):
+		"""Send a request to the mini-pipeline of functionalities
+		<strong>Implementation Notes</strong>.
+		<p>
+		Send a text fragment in the body. Trends and innovations will be identified, sentiment and entities
+		will be generated.
+		</p>
+		"""
+		try:
+			data = api.payload
+			print(data['text'])
+			trends = trends_model.demo_return(data['text'])
+			sentiment = sentiment_model.text_to_sentiment(data['text'])
+			entities = extractor.get_annotations(data['text'])
+			return {'status': 200,
+					'trends': trends,
+					'sentiment': sentiment,
+					'entities': entities}
+
+		except KeyError as e:
+			name_space.abort(400,  status="Could not retrieve necessary payload information", statusCode="400")
+
+		except Exception as e:
+			name_space.abort(500,  status="Error within app: " + str(e), statusCode="500")
 
 
 if __name__ == '__main__':
