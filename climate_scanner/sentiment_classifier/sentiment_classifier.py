@@ -157,7 +157,7 @@ class BERT_arch(nn.Module):
 		total_preds = np.concatenate(total_preds,axis=0)
 
 		return avg_loss,total_preds
-    
+
 
 	def evaluate(self,train_dataloader,val_dataloader):
 		print('\nEvaluating...')
@@ -289,11 +289,11 @@ class PreProcessing:
 		'''
 		# tokenize
 		tokens = self.tokenizer.batch_encode_plus(txt_list.tolist(),
-                                          max_length =max_token_length,
-                                          pad_to_max_length=True,
-                                          add_special_tokens=True,
-                                          truncation=True,
-                                          return_token_type_ids=False)
+										  max_length =max_token_length,
+										  pad_to_max_length=True,
+										  add_special_tokens=True,
+										  truncation=True,
+										  return_token_type_ids=False)
 
 		
 		# Cover Integer sequences to Tensors
@@ -327,11 +327,11 @@ class PreProcessing:
 		
 		# Tokenizing process
 		tokens = self.tokenizer.batch_encode_plus(text_lst,
-                                          max_length = 100,
-                                          pad_to_max_length=True,
-                                          add_special_tokens=True,
-                                          truncation=True,
-                                          return_token_type_ids=False)
+										  max_length = 100,
+										  pad_to_max_length=True,
+										  add_special_tokens=True,
+										  truncation=True,
+										  return_token_type_ids=False)
 
 		X_seq = torch.tensor(tokens['input_ids']).to(self.device)
 		X_mask = torch.tensor(tokens['attention_mask']).to(self.device)
@@ -349,7 +349,7 @@ class SentimentInterface:
 	# sentiment interface class to use SentimentClassifier
 	def __init__(self):
 		# path to model 
-		path_to_model = 'data//model//model_v1.pt'
+		path_to_model = get_data(os.path.join('model', 'model_v1.pt'))
 		device = torch.device('cpu')
 		# model
 		self.model = BERT_arch(device)
@@ -396,6 +396,7 @@ class SentimentInterface:
 		
 		return output
 
+
 	def text_to_sentiment(self, text_lst):
 		if isinstance(text_lst, str):
 			text_lst = [text_lst]
@@ -411,16 +412,19 @@ class SentimentInterface:
 		# y_pred = y_pred.squeeze().astype(int)
 		# y_proba = y_proba.squeeze().astype(float)
 
-		output = copy.deepcopy(input_from_trend_classifier)
+		# output = []
+        #
+		# for idx in range(0, len(text_lst)):
+		# 	# output[idx]['sentiment_class'] = y_pred[idx]
+		# 	# output[idx]['sentiment_proba'] = y_proba[idx]
+		# 	output[idx] = {}
+		# 	output[idx]['sentiment_class'] = y_hat[idx - 1][0]
+		# 	output[idx]['sentiment_proba'] = y_hat[idx - 1][1]
 
-		for idx in range(1, len(output)):
-			# output[idx]['sentiment_class'] = y_pred[idx]
-			# output[idx]['sentiment_proba'] = y_proba[idx]
-			output[idx]['sentiment_class'] = y_hat[idx - 1][0]
-			output[idx]['sentiment_proba'] = y_hat[idx - 1][1]
+		return y_hat
 
 if __name__ == '__main__':	
-    
+
 	x = SentimentInterface()
 	input_from_trend_classifier = [{'ID': 1545},
 									{'string_indices': (0, 121),
