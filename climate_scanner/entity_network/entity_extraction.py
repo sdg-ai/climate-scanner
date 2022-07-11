@@ -2,12 +2,12 @@
 
 import requests
 import os
-import spacy 
+import spacy
 nlp = spacy.load('en_core_web_lg')
 
 # Set via environment variables
 os.getenv('user_key')
-# user_key = ''
+
 headers = {
 
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -21,23 +21,23 @@ headers = {
 #     ------------------------
 #     extraction_string (str)- input string to extract
 #                               DBPedia entities from within
-#   page_rank_sq_threshold (float) 
-#         "set this to a real number x to calculate a threshold for pruning the annotations on 
-#         the basis of their pagerank score. The Wikifier will compute the sum of squares of all 
-#         the annotations (e.g. S), sort the annotations by decreasing order of pagerank, and calculate a 
-#         threshold such that keeping the annotations whose pagerank exceeds this threshold would bring 
-#         the sum of their pagerank squares to S · x. Thus, a lower x results in a higher threshold and 
-#         less annotations. (Default value: −1, which disables this mechanism.) The resulting threshold 
-#         is reported in the minPageRank field of the JSON result object. If you want the Wikifier to 
-#         actually discard the annotations whose pagerank is < minPageRank instead of including them in 
+#   page_rank_sq_threshold (float)
+#         "set this to a real number x to calculate a threshold for pruning the annotations on
+#         the basis of their pagerank score. The Wikifier will compute the sum of squares of all
+#         the annotations (e.g. S), sort the annotations by decreasing order of pagerank, and calculate a
+#         threshold such that keeping the annotations whose pagerank exceeds this threshold would bring
+#         the sum of their pagerank squares to S · x. Thus, a lower x results in a higher threshold and
+#         less annotations. (Default value: −1, which disables this mechanism.) The resulting threshold
+#         is reported in the minPageRank field of the JSON result object. If you want the Wikifier to
+#         actually discard the annotations whose pagerank is < minPageRank instead of including them in
 #         the JSON result object, set the applyPageRankSqThreshold parameter to true (its default value is false)."
 
 #   apply_page_rank_sq_threshold (bool) -
-#         If you want the Wikifier to actually discard the annotations whose pagerank is < minPageRank 
-#         instead of including them in the JSON result object, set the applyPageRankSqThreshold 
+#         If you want the Wikifier to actually discard the annotations whose pagerank is < minPageRank
+#         instead of including them in the JSON result object, set the applyPageRankSqThreshold
 #         parameter to true (its default value is false).
 
-#     min_link_freq (int) - 
+#     min_link_freq (int) -
 #         if a link with a particular combination of anchor text and
 #         target occurs in very few Wikipedia pages (less than the value of minLinkFrequency),
 #         this link is completely ignored and the target page is not considered as a candidate
@@ -45,20 +45,20 @@ headers = {
 #         (Default value: 1, which effectively disables this heuristic.)
 
 #     max_mention_entropy (float) -
-#         set this to a real number x to cause all highly ambiguous mentions to be ignored 
-#         (i.e. they will contribute no candidate annotations into the process). 
-#         The heuristic used is to ignore mentions where H(link target | anchor text = this mention) > x. 
+#         set this to a real number x to cause all highly ambiguous mentions to be ignored
+#         (i.e. they will contribute no candidate annotations into the process).
+#         The heuristic used is to ignore mentions where H(link target | anchor text = this mention) > x.
 #         (Default value: −1, which disables this heuristic.)
 
 #     max_targets_per_mention (int) -
-#         set this to an integer x to use only the most frequent x candidate annotations 
-#         for each mention (default value: 20). Note that some mentions appear as the 
-#         anchor text of links to many different pages in the Wikipedia, so disabling this 
-#         heuristic (by setting x = −1) can increase the number of candidate annotations 
+#         set this to an integer x to use only the most frequent x candidate annotations
+#         for each mention (default value: 20). Note that some mentions appear as the
+#         anchor text of links to many different pages in the Wikipedia, so disabling this
+#         heuristic (by setting x = −1) can increase the number of candidate annotations
 #         significantly and make the annotation process slower.
 
-#     wikiDataClasses (bool) - 
-#         determines whether to include, for each annotation, a list if wikidata 
+#     wikiDataClasses (bool) -
+#         determines whether to include, for each annotation, a list if wikidata
 #         (concept ID, concept name) pairs for all classes to which concept belongs directly or indirectly.
 
 
@@ -67,14 +67,14 @@ headers = {
 
 
 
-def get_entities(extraction_string, 
+def get_entities(extraction_string,
                 page_rank_sq_threshold,                # a lower x results in a higher threshold and less annotations default(-1)
                 apply_page_rank_sq_threshold,          # to actually discard the annotations whose pagerank is < minPageRank (defaultis False)
-                min_link_freq,                         # default 1 
+                min_link_freq,                         # default 1
                 max_mention_entropy,                   # cause all highly ambiguous mentions to be ignored float (default -1)
                 max_targets_per_mention,               # to use only the most frequent x candidate annotations for each mention (default x=20)
                 wiki_data_classes,                     # wikiDataClasses (true or false)
-                wiki_data_class_ids):                  # wikiDataClassIds (true or false)
+                wiki_data_class_ids):                   # wikiDataClassIds (true or false)
 
 
 
@@ -108,14 +108,14 @@ def get_entities(extraction_string,
 class EntityExtractor:
     # Wrapper function, extracting the 'annotations' field of the return json
     def get_annotations_wiki(self,
-                        extraction_string, 
+                        extraction_string,
                         page_rank_sq_threshold       = "-1",       # (float) a lower x results in a higher threshold and less annotations default(-1)
                         apply_page_rank_sq_threshold = "false",    # (bool) to actually discard the annotations whose pagerank is < minPageRank (defaultis False)
-                        min_link_freq                = "1",        # (int) default 1 
+                        min_link_freq                = "1",        # (int) default 1
                         max_mention_entropy          = "-1",       # (float) cause all highly ambiguous mentions to be ignored float (default -1)
                         max_targets_per_mention      = "20",       # (int) to use only the most frequent x candidate annotations for each mention (default x=20)
                         wiki_data_classes            = "true",
-                        wiki_data_class_ids          = "false"):   
+                        wiki_data_class_ids          = "false"):
 
         annotations = get_entities(extraction_string             = extraction_string,
                                     page_rank_sq_threshold       = page_rank_sq_threshold,
@@ -127,13 +127,13 @@ class EntityExtractor:
                                     wiki_data_class_ids          = wiki_data_class_ids).get('annotations', None)
 #extracting annotations
         res={}
-        if wiki_data_classes=='true':    
+        if wiki_data_classes=='true':
             for idx,elem in enumerate(annotations):
                 if 'wikiDataClasses' in elem.keys():
                     wikiClassesLength = len(elem['wikiDataClasses']) if len(elem['wikiDataClasses'])<5 else 5
-                    classesList       = [elem['wikiDataClasses'][i]['enLabel'] for i in range(wikiClassesLength)] 
+                    classesList       = [elem['wikiDataClasses'][i]['enLabel'] for i in range(wikiClassesLength)]
                 else:
-                    classesList       = []                    
+                    classesList       = []
                 chFrom            = elem['support'][0]['chFrom']
                 chTo              = elem['support'][0]['chTo']+1
                 word              = extraction_string[chFrom:chTo]
@@ -144,14 +144,14 @@ class EntityExtractor:
                 if len(entities):
                     res[word]=tup
         else:
-            for idx,elem in enumerate(annotations):          
+            for idx,elem in enumerate(annotations):
                 chFrom            = elem['support'][0]['chFrom']
                 chTo              = elem['support'][0]['chTo']+1
                 word              = extraction_string[chFrom:chTo]
                 entities          = elem['dbPediaTypes']
                 url               = elem['url']
                 dbPediaIri        = elem['dbPediaIri']
-                tup               = {'entityType':entities,'wiki_classes':None,'url':url,'dbPediaIri':dbPediaIri} 
+                tup               = {'entityType':entities,'wiki_classes':None,'url':url,'dbPediaIri':dbPediaIri}
                 if len(entities):
                     res[word]= tup
         return annotations,res
@@ -159,42 +159,42 @@ class EntityExtractor:
     def get_annotations_spacy(self,doc):
         """
         Method to extract annotations using spacy
-        
+
 		Args:
             doc (spacy)
             A Doc is a sequence of Token objects. Access sentences and named entities,
-            export annotations to numpy arrays, losslessly serialize to compressed binary strings. 
-        
+            export annotations to numpy arrays, losslessly serialize to compressed binary strings.
+
 		Returns:
             List() of lists [entity.text,entity.label_]
         """
-        
+
         res = []
-        if doc.ents: 
-            for ent in doc.ents: 
+        if doc.ents:
+            for ent in doc.ents:
                 if ent.label_ == "PERSON" or ent.label_=="ORG" or ent.label_== "GPE":
                     res.append([ent.text,ent.label_])
         return res
-    
+
     def get_annotations(self,doc):
         """
         Method to extract annotations using spaCy and wikifier. It uses the data the following methods:
         # get_annotations_spacy()
         # get_annonations_wiki()
-        
+
 		Args:
             doc - (str)
             an str object representing given text
-        
+
 		Returns:
             entities_list - list([])
                 entities_list[0]: (str) representing the annotated word from text
                 entities_list[1]: (str) repesenting spaCy entity classification
                 entities_list[3]: dict() representing wiki return object featuring: entityType,wiki_classes,url,dbPediaIri
-            
+
         """
-        
-        txt = nlp(doc) 
+
+        txt = nlp(doc)
         entities_list = self.get_annotations_spacy(txt)
         temp_txt = " ".join([ent[0] for ent in entities_list])
         _,wiki_res = self.get_annotations_wiki(extraction_string=temp_txt)
@@ -281,13 +281,20 @@ def test_code():
 
 	annotations = x.get_annotations(example_string_2)
 
+
 	for i, annotation in enumerate(annotations):
 		print('============== {} =============='.format(i))
 		print(annotation[0],'\n',annotation[1],'\n entityType:',annotation[2]['entityType'], '\n wiki_classes:',annotation[2]['wiki_classes'],'\n url:',annotation[2]['url'], '\n dbPediaIri:',annotation[2]['dbPediaIri'])
-		
+
 
 		print('\n')
 
+	return annotations
 
+
+'''
 if __name__ == '__main__':
 	test_code()
+'''
+
+

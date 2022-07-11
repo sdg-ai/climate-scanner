@@ -1,0 +1,52 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.1.5,<3.2.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"135539605",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null
+  },
+  "labels":{
+    "textcat_multilabel":[
+      "3d_printed_clothes"
+    ]
+  },
+  "pipeline":[
+    "textcat_multilabel"
+  ],
+  "components":[
+    "textcat_multilabel"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "cats_score":0.8484629295,
+    "cats_score_desc":"macro AUC",
+    "cats_micro_p":0.8375,
+    "cats_micro_r":0.8481012658,
+    "cats_micro_f":0.8427672956,
+    "cats_macro_p":0.8375,
+    "cats_macro_r":0.8481012658,
+    "cats_macro_f":0.8427672956,
+    "cats_macro_auc":0.8484629295,
+    "cats_f_per_type":{
+      "3d_printed_clothes":{
+        "p":0.8375,
+        "r":0.8481012658,
+        "f":0.8427672956
+      }
+    },
+    "cats_macro_auc_per_type":0.0,
+    "textcat_multilabel_loss":0.0002564772
+  }
+}

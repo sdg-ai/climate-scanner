@@ -1,0 +1,6 @@
+{
+  "labels":[
+    "car_sharing"
+  ],
+  "threshold":0.5
+}

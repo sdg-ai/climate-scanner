@@ -1,0 +1,52 @@
+{
+  "lang":"en",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.1.4,<3.2.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"006df1ae1",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null
+  },
+  "labels":{
+    "textcat_multilabel":[
+      "biking"
+    ]
+  },
+  "pipeline":[
+    "textcat_multilabel"
+  ],
+  "components":[
+    "textcat_multilabel"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "cats_score":0.6341911765,
+    "cats_score_desc":"macro AUC",
+    "cats_micro_p":0.9393939394,
+    "cats_micro_r":0.9117647059,
+    "cats_micro_f":0.9253731343,
+    "cats_macro_p":0.9393939394,
+    "cats_macro_r":0.9117647059,
+    "cats_macro_f":0.9253731343,
+    "cats_macro_auc":0.6341911765,
+    "cats_f_per_type":{
+      "biking":{
+        "p":0.9393939394,
+        "r":0.9117647059,
+        "f":0.9253731343
+      }
+    },
+    "cats_macro_auc_per_type":0.0,
+    "textcat_multilabel_loss":0.0844878288
+  }
+}

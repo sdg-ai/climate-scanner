@@ -18,6 +18,9 @@ when considering innovations and trends which relate to climate change. The libr
 git clone https://github.com/sdg-ai/climate-scanner.gt
 pip3 install -r requirements.txt
 python3 setup.py install
+
+git lfs install
+git lfs pull
 ```
 
 ## Usage Instructions
