@@ -1,0 +1,15 @@
+data:
+  path_to_data: "path to data"
+  path_to_model: "path to model bin"
+  input_coordinator: ["ID","title","doc","climate_scanner","climate_scanner_prob"]
+  path_to_raw_data: "data/raw_data"
+  path_to_cleaned_data: "data/cleaned_data/"
+  path_to_annotated_data: "data/annotated_data/"
+  path_to_noise_model: "model/"
+
+
+predict:
+  threshold: 0.75
+
+
+
