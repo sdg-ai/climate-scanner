@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import yaml
-# from climate_scanner.noise_classifier.data_utils import load_params
-from data_utils import load_params
+from climate_scanner.noise_classifier.data_utils import load_params
 import os
 import spacy
+from spacy.cli.train import train as spacy_train
 
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -28,7 +28,7 @@ class BodyNonbodyClassifier:
         try:
             self.model = spacy.load("en_noise_binary_model")
             print(f"\nNoise model successfully loaded.")
-        except:
+        except OSError:
             print("\nFailed to load model.")
 
     def predict(self, text):
@@ -54,18 +54,22 @@ class BodyNonbodyClassifier:
 
         return output
 
+    def train(self):
+        """
+        A function which trains the noise classifier.
+        """
+        dataset_path = os.path.join(params['data']['path_to_annotated_data'], 'spacy')
+        config_path = os.path.join(dataset_path, 'config.cfg')
+        train_data_path = os.path.join(dataset_path, 'train.spacy')
+        dev_data_path = os.path.join(dataset_path, 'dev.spacy')
+        output_model_path = os.path.join(params['data']['path_to_noise_model'], 'spacy', 'spacy_python_textcat')
 
-def main():
-    """
-    pipeline to read data/process data /train/ test /evaluate
-    :return:
-    """
-    x = BodyNonbodyClassifier()
-    # text = "2014b"
-    text = "Lithium ion battery life has greatly improved electric transport."
-    output = x.predict(text)
-    print(output)
-
-
-if __name__ == "__main__":
-    main()
+        output = spacy_train(
+            config_path,
+            output_path=output_model_path,
+            overrides={
+                "paths.train": train_data_path,
+                "paths.dev": dev_data_path,
+            },
+        )
+        return output
