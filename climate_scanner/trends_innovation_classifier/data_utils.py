@@ -80,6 +80,31 @@ def doc_to_sentence(text:str):
     return split_sentences
 
 
+def doc_to_multisentence(text:str, num_sentences:int):
+    """
+        Sentence splitter and string indices generator. Splits the text into groups of sentences and generates string indices.
+        Arguments: Str - Free Text Ex: Title / Document / Article etc.
+                 : Int - Number of sentences that should be grouped together.
+        :return: List - List of dictionaries having arrays of string indices and text.
+        """
+    sentences = nltk.sent_tokenize(text)
+    offset = 0
+    sent_dict = {"string_indices":(0,0),"text":""}
+    split_sentences = []
+    for j in range(len(sentences)-num_sentences+1):
+        line_indices = []
+        line_text = []
+        for line in sentences[j:j+num_sentences]:
+            offset = text.find(line,offset)
+            line_indices.append(tuple([offset,offset+len(line)]))
+            line_text.append(str(line))
+        sent_dict["string_indices"] = [line_indices[i] for i in range(len(line_indices))]
+        sent_dict["text"] = [line_text[i] for i in range(len(line_text))]
+        split_sentences.append(sent_dict.copy())
+        offset = 0
+    return split_sentences
+
+
 def get_sent_len(x):
     """
     Counts the number of sentences in the given text. Utilizes the doc_to_sentence() function to generate sentences from the given text.
