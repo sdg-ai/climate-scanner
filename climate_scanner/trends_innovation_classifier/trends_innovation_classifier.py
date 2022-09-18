@@ -2,6 +2,7 @@
 import os
 import yaml
 from climate_scanner.trends_innovation_classifier.data_utils import doc_to_sentence,data_processing, load_params
+from data_utils import doc_to_multisentence
 import glob
 import os
 import spacy
@@ -22,7 +23,8 @@ class TrendsInnovationClassifier:
     """A class to define functions to train/test/predict and evalute the classifier.
     """
 
-    def __init__(self):
+    def __init__(self, debug=False):
+        self.debug = debug
         self.categories, self.model_names = self._list_all_classifiers()
         self.models = self.load_all_classifiers(self.model_names)
 
@@ -85,8 +87,9 @@ class TrendsInnovationClassifier:
         all_labels, all_probs, most_likely_trends = [], [], []
         threshold = params['trends_demo']['threshold']
         count = params['trends_demo']['count']
-        print(count, threshold)
-        print(len(self.models))
+        if self.debug:
+            print(count, threshold)
+            print(len(self.models))
 
         for nlp in self.models:
             doc = nlp(text)
@@ -94,20 +97,107 @@ class TrendsInnovationClassifier:
             for item in prediction:
                 predict_label = item
                 predict_prob = prediction[predict_label]
-            print("\nmodel: {} \t predict_label {} \t predict_prob {}: ".format(self.categories[self.models.index(nlp)],
-                                                                                predict_label, predict_prob))
+            if self.debug:
+                print("\nmodel: {} \t predict_label {} \t predict_prob {}: ".format(self.categories[self.models.index(nlp)],
+                                                                                    predict_label, predict_prob))
             all_labels.append(predict_label)
             all_probs.append(predict_prob)
 
         most_likely_trends = [[all_labels[i], all_probs[i]] for i, v in enumerate(all_probs) if v > threshold]
         most_likely_trends = sorted(most_likely_trends, key=itemgetter(1), reverse=True)
-        print("most likely trends contains: ", most_likely_trends)
+        if self.debug:
+            print("most likely trends contains: ", most_likely_trends)
         try:
             most_likely_trends = [most_likely_trends[i] for i in range(count)]
         except:
             print("{} trends match the requested threshold.".format(len(most_likely_trends)))
 
         return most_likely_trends
+
+    def scan_predict(self, text):
+        """ Function to scan over three sentence blocks and make predictions
+        :arg text (str) - input text string
+        @:return array([{"text": <text-snippet>,
+                        "indices": [(<start>, <end>)],
+                         "prediction": <tag str>}]"""
+        enriched_sentence_objects = []
+        tags = set()
+        sentencs_objects = doc_to_multisentence(text, 3)
+        # Predict over sentence blocks
+        for sentence_block in sentencs_objects:
+            text_block = ' '.join(sentence_block['text'])
+            predictions = self.predict(text_block)
+
+            sentence_block['predictions'] = {}
+            for item in predictions:
+                sentence_block['predictions'][item[0]] = item[1]
+
+            for tag, confidence in predictions:
+                tags.add(tag)
+            if predictions:
+                enriched_sentence_objects.append(sentence_block)
+
+        # Condense predictions
+        predictions = []
+        block_count = len(enriched_sentence_objects)
+        for tag in tags:
+            current_index_set = []
+            current_sentence_set = []
+            current_end_offset = None
+            i = 0
+            while i < block_count:
+                if tag in enriched_sentence_objects[i]['predictions']:
+                    if not current_end_offset:
+                        current_end_offset = i
+                        for item in enriched_sentence_objects[i]['string_indices']:
+                            if item not in current_index_set:
+                                current_index_set.append(item)
+                        for item in enriched_sentence_objects[i]['text']:
+                            if item not in enriched_sentence_objects:
+                                current_sentence_set.append(item)
+
+
+                    elif i - current_end_offset < 3:
+                        current_end_offset = i
+                        for item in enriched_sentence_objects[i]['string_indices']:
+                            if item not in current_index_set:
+                                current_index_set.append(item)
+                        for item in enriched_sentence_objects[i]['text']:
+                            if item not in enriched_sentence_objects:
+                                current_sentence_set.append(item)
+
+                    else:
+                        # Format prediction object
+                        prediction_obj = {'string_indices': [(list(current_index_set)[0][0],
+                                                              list(current_index_set)[-1][1])],
+                                          'text': ' '.join(current_sentence_set),
+                                          'prediction': tag}
+                        predictions.append(prediction_obj)
+
+                        # Reset variables
+                        current_end_offset = i
+                        current_index_set = []
+                        current_sentence_set = []
+
+                        for item in enriched_sentence_objects[i]['string_indices']:
+                            if item not in current_index_set:
+                                current_index_set.append(item)
+                        for item in enriched_sentence_objects[i]['text']:
+                            if item not in enriched_sentence_objects:
+                                current_sentence_set.append(item)
+
+                i += 1
+            if current_index_set:
+                # Format prediction object
+                prediction_obj = {'string_indices': [(list(current_index_set)[0][0],
+                                                      list(current_index_set)[-1][1])],
+                                  'text': ' '.join(current_sentence_set),
+                                  'prediction': tag}
+                predictions.append(prediction_obj)
+
+        return predictions
+
+
 
     def demo_return(self, text):
         """
@@ -178,8 +268,10 @@ def main():
     text = "Lithium ion battery life has greatly improved electric transport. " \
            "Electric motors can now run for hundreds of kilometers without needing to refuel. " \
            "Car manufacturing is improving year on year"
-    output = x.demo_return(text)
-    print(output)
+
+    text = "Devolved and local government play an essential role in meeting national net zero ambitions. Across the UK many places have already made great strides towards our net zero future, having set their own targets and strategies for meeting local net zero goals. Taking a place-based approach to net zero is also vital to ensuring that the opportunities from the transition support the government’s levelling up agenda. 2. The combination of devolved, local, and regional authorities’ legal powers, assets, access to targeted funding, local knowledge, and relationships with stakeholders enables them to drive local progress towards net zero. Not only does local government drive action directly, but it also plays a key role in communicating with, and inspiring action by, local businesses, communities, and civil society. Of all UK emissions, 82% are within the scope of influence of local authorities.43 3. Local leaders are well placed to engage with all parts of their communities and to understand local policy, political, social, and economic nuances relevant to climate action. The government currently works with the Core Cities Group, for instance, which undertakes a range of activities to promote climate change adaptation, raise awareness and foster leadership in cities. Local government decides how best to serve communities and is best placed to integrate activity on the ground so that action on climate change also delivers wider benefits – for fuel poor households, for the local economy, for the environment and biodiversity, as well as the provision of green jobs and skills. 4. Despite the excellent work already underway, we understand that there remain significant barriers to maximising placebased delivery on net zero. We know that some places are moving faster than others and that places and communities will face different challenges when meeting net zero commitments and adapting to climate change. 5. There are significant regional variations in the level of emissions (see Figure 29 below) and some of the hardest hit local economies that face multiple development and growth challenges are proportionally home to a greater number of lower skilled workers. Many of these areas are also where high-carbon industries are locate"
+    output = x.scan_predict(text)
+    # print(output)
 
 
 if __name__ == "__main__":
