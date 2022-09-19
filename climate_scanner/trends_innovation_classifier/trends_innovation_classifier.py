@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import yaml
-from climate_scanner.trends_innovation_classifier.data_utils import doc_to_sentence,data_processing, load_params
-from data_utils import doc_to_multisentence
+from climate_scanner.trends_innovation_classifier.data_utils import doc_to_sentence, doc_to_multisentence, data_processing, load_params
 import glob
 import os
 import spacy
