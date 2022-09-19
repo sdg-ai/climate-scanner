@@ -23,10 +23,11 @@ class TrendsInnovationClassifier:
     """A class to define functions to train/test/predict and evalute the classifier.
     """
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, mode="multi"):
         self.debug = debug
+        self.mode = mode.lower()
         self.categories, self.model_names = self._list_all_classifiers()
-        self.models = self.load_all_classifiers(self.model_names)
+        self.models = self.load_models(self.mode)
 
     def _list_all_classifiers(self):
         """
@@ -75,6 +76,38 @@ class TrendsInnovationClassifier:
                 print(e)
 
         return all_classifiers
+    
+        def load_models(self, mode):
+        """
+        A function which loads the model(s).
+        :inputs:
+            mode (str): whether to load single or multi label models
+        """
+
+        classifiers = []
+
+        # If 'single' mode, load single label classifiers.
+        if mode == "single":
+            for model in self.model_names:
+                print(model)
+                try:
+                    model_best = os.path.join(model,'model-best')
+                    classifiers.append(spacy.load(model_best))
+                except Exception as e:
+                    print(e)
+
+        # If 'multi' mode, load multi label classifier.
+        elif mode == "multi":
+            try:
+                model_best = os.path.join(get_full_path(params['data']['path_to_prodigy_models']), 'multilabel_classifier', 'model-best')
+                classifiers = spacy.load(model_best)
+            except Exception as e:
+                print(e)
+
+        else:
+            print("Invalid mode entered. Set mode to either 'single' or 'multi' label.")
+
+        return classifiers
 
     def predict(self, text):
         """
@@ -91,18 +124,35 @@ class TrendsInnovationClassifier:
             print(count, threshold)
             print(len(self.models))
 
-        for nlp in self.models:
+        # If 'single' mode, iterate through the single label classifiers.
+        if self.mode == "single":
+            for nlp in self.models:
+                doc = nlp(text)
+                prediction = doc.cats
+                for item in prediction:
+                    predict_label = item
+                    predict_prob = prediction[predict_label]
+                if self.debug:
+                    print("\nmodel: {} \t predict_label {} \t predict_prob {}: ".format(self.categories[self.models.index(nlp)],
+                                                                                        predict_label, predict_prob))
+                all_labels.append(predict_label)
+                all_probs.append(predict_prob)
+
+        # If 'multi' mode, make prediction using the multi label classifier.
+        elif self.mode == "multi":
+            nlp = self.models
             doc = nlp(text)
             prediction = doc.cats
+            print("Prediction: ", prediction)
             for item in prediction:
-                predict_label = item
-                predict_prob = prediction[predict_label]
-            if self.debug:
-                print("\nmodel: {} \t predict_label {} \t predict_prob {}: ".format(self.categories[self.models.index(nlp)],
-                                                                                    predict_label, predict_prob))
-            all_labels.append(predict_label)
-            all_probs.append(predict_prob)
+                all_labels.append(item)
+                all_probs.append(prediction[item])
+            print("\nmodel: {} \t predict_label {} \t predict_prob {}: ".format(
+                self.models, all_labels, all_probs))
 
+        else:
+            print("Invalid mode entered. Set mode to either 'single' or 'multi' label.")
+            
         most_likely_trends = [[all_labels[i], all_probs[i]] for i, v in enumerate(all_probs) if v > threshold]
         most_likely_trends = sorted(most_likely_trends, key=itemgetter(1), reverse=True)
         if self.debug:
