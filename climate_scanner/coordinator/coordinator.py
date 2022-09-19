@@ -47,7 +47,13 @@ class EnrichmentCoordinator:
         entities = self.entity_recognition.get_annotations(article_text)
         for item in trend_results:
             item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'])
-            item['extract_entities'] = self.entity_recognition.get_annotations(item['text'])
+            entity_list = []
+            for entity in self.entity_recognition.get_annotations(item['text']):
+                if entity[0] not in entity_list:
+                    entity_list.append(entity[0])
+
+            item['extract_entities'] = entity_list
+            print(item)
 
         results = {'trend_extractions': trend_results,
                    'article_sentiment': sentiment,
