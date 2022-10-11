@@ -13,7 +13,14 @@ from sklearn.model_selection import train_test_split
 import copy
 import tqdm
 
-df = pd.read_csv('/content/drive/MyDrive/non_climate_data.csv')
+# df = pd.read_csv('/content/drive/MyDrive/non_climate_data.csv')
+
+_ROOT = os.path.abspath(os.path.dirname(__file__))
+def get_data(path):
+    return os.path.join(_ROOT, 'data', path)
+    
+df = pd.read_csv(get_data('non_climate_data.csv'))
+
 train_df, test_df = train_test_split(df, test_size=0.20, random_state = 42)
 train_df, val_df = train_test_split(train_df, test_size=0.02, random_state = 42)
 
@@ -174,7 +181,7 @@ def convert_probs_to_labels(probs, threshold = 0.5):
 
 # from sklearn.metrics import confusion_matrix
 
-def evaluate_precrec(model, test_dataloader, threshold = 0.5, device = "cpu"):
+def evaluate_model_metrics(model, test_dataloader, threshold = 0.5, device = "cpu"):
     """
     Evaluates `model` on test dataset
 
@@ -184,7 +191,10 @@ def evaluate_precrec(model, test_dataloader, threshold = 0.5, device = "cpu"):
         - threshold (float): Probability Threshold above which we consider label as 1 and 0 below
 
     Returns:
-        - accuracy (float): Average accuracy over the test dataset 
+        - precision (float): Precision Score over the test dataset 
+        - recall (float): Recall Score over the test dataset 
+        - F1 score (float): F1 Score (HM of precision and recall) over the test dataset         
+        - accuracy (float): Average accuracy over the test dataset     
     """
     
     model.eval()
@@ -236,8 +246,6 @@ def evaluate(model, test_dataloader, threshold = 0.5, device = "cpu"):
     model = model.to(device)
     accuracy = 0
     
-    # YOUR CODE HERE
-    # raise NotImplementedError()
     with torch.no_grad():
         for test_batch in test_dataloader:
             features, mask, labels = test_batch
@@ -252,7 +260,6 @@ def evaluate(model, test_dataloader, threshold = 0.5, device = "cpu"):
         accuracy = accuracy / len(test_dataloader)
     
     return accuracy
-    
 
 def train(model, train_dataloader, val_dataloader,
           lr = 1e-5, num_epochs = 3,
@@ -324,13 +331,6 @@ best_model, best_val_acc = train(model, train_loader, val_loader, num_epochs = 3
 test_accuracy = evaluate(best_model, test_loader, threshold = 0.5, device = "cuda")
 print(test_accuracy)
 
-# for i in range(3, 8):
-#     print("threshold", str(i/10), "prec, rec, f1, accu", evaluate_precrec(best_model, test_loader, threshold = i/10.0, device = "cuda"))
-
-# torch.save(best_model.state_dict(), 'checkpoint.pth')
-# model.load_state_dict(torch.load('checkpoint.pth'))
-# torch.save(model, 'checkpoint1.pth')
-
 def predict_text(text, model, tokenizer, threshold = 0.5, device = "cpu"):
     """
     Predicts the sentiment label for a piece of text using the BERT classifier model
@@ -353,7 +353,5 @@ def predict_text(text, model, tokenizer, threshold = 0.5, device = "cpu"):
     
     return pred_label
 
-# Final Predictor
-
-# text = """Hello"""
-# predict_text(text, best_model, bert_tokenizer)
+def test(text):
+    return predict_text(text, best_model, bert_tokenizer)
