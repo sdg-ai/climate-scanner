@@ -143,7 +143,7 @@ class BertClassifierModel(nn.Module):
         output = self.bert_layer(input_ids, attention_mask = attn_mask).pooler_output
         output = self.sigmoid_layer(self.output_layer(output))
         
-        return output.squeeze(-1) # Question: Why do squeeze() here?
+        return output.squeeze(-1) 
 
 # HELPER FUNCTIONS
 
@@ -176,8 +176,6 @@ def convert_probs_to_labels(probs, threshold = 0.5):
     """
     labels = np.where(probs > threshold, 1, 0)
     return labels
-
-# from sklearn.metrics import confusion_matrix
 
 def evaluate_model_metrics(model, test_dataloader, threshold = 0.5, device = "cpu"):
     """
