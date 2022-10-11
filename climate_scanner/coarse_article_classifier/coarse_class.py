@@ -13,8 +13,6 @@ from sklearn.model_selection import train_test_split
 import copy
 import tqdm
 
-# df = pd.read_csv('/content/drive/MyDrive/non_climate_data.csv')
-
 _ROOT = os.path.abspath(os.path.dirname(__file__))
 def get_data(path):
     return os.path.join(_ROOT, 'data', path)
