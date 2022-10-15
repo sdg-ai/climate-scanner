@@ -48,7 +48,10 @@ setuptools.setup(
     package_data={
         # If any package contains these extensions, include them:
         '': ['*.txt', '*.ods', '*.xlsx', '*.tsv', '*.csv', '*.pkl', 'data/*.*',
-             'data/*/*.*', 'data/*/*/*.*', 'data/*/*/*', 'data/*/*/*/*'],
+             'data/*/*.*', 'data/*/*/*.*', 'data/*/*/*.*', 'data/*/*/*/*.*',  'data/*/*/*/*/*.*',
+             'data/*/*/*/*/*/*.*', 'data/*/*/*/*/*/*',
+             'data/*',    'data/*/*', 'data/*/*/*', 'data/*/*/*', 'data/*/*/*/*', 'data/*/*/*/*/*'
+             ],
     },
 
     # metadata
