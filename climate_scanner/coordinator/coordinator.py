@@ -66,7 +66,7 @@ class EnrichmentCoordinator:
         entities = []
         entities_dedupe_set = set()
         for item in trend_results:
-            item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'])
+            item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'][0])
             entity_list = []
             for entity in self.entity_recognition.get_annotations(item['text']):
                 if self.locs_flag:
