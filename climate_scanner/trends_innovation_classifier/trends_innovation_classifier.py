@@ -75,8 +75,8 @@ class TrendsInnovationClassifier:
                 print(e)
 
         return all_classifiers
-    
-        def load_models(self, mode):
+
+    def load_models(self, mode):
         """
         A function which loads the model(s).
         :inputs:
@@ -217,10 +217,11 @@ class TrendsInnovationClassifier:
 
                     else:
                         # Format prediction object
-                        prediction_obj = {'string_indices': [(list(current_index_set)[0][0],
-                                                              list(current_index_set)[-1][1])],
-                                          'text': ' '.join(current_sentence_set),
+                        prediction_obj = {'string_indices': [list(current_index_set)[0][0],
+                                                              list(current_index_set)[-1][1]],
                                           'prediction': tag}
+                        if self.debug:
+                            prediction_obj['text'] = ' '.join(current_sentence_set)
                         predictions.append(prediction_obj)
 
                         # Reset variables
@@ -238,10 +239,11 @@ class TrendsInnovationClassifier:
                 i += 1
             if current_index_set:
                 # Format prediction object
-                prediction_obj = {'string_indices': [(list(current_index_set)[0][0],
-                                                      list(current_index_set)[-1][1])],
-                                  'text': ' '.join(current_sentence_set),
+                prediction_obj = {'string_indices': [list(current_index_set)[0][0],
+                                                      list(current_index_set)[-1][1]],
                                   'prediction': tag}
+                if self.debug:
+                    prediction_obj['text'] = ' '.join(current_sentence_set)
                 predictions.append(prediction_obj)
 
         return predictions
