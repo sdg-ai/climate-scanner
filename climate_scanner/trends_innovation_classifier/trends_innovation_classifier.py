@@ -98,7 +98,7 @@ class TrendsInnovationClassifier:
         # If 'multi' mode, load multi label classifier.
         elif mode == "multi":
             try:
-                model_best = os.path.join(get_full_path(params['data']['path_to_prodigy_models']), 'multilabel_classifier', 'model-best')
+                model_best = os.path.join(get_full_path(params['data']['path_to_prodigy_models']), 'balanced_multilabel_classifier', 'model-best')
                 classifiers = spacy.load(model_best)
             except Exception as e:
                 print(e)
