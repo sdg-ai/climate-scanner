@@ -2,7 +2,7 @@
 
 import os
 import json
-
+import csv
 from climate_scanner.entity_network.graph_demo.entity_extraction import EntityExtractor
 from climate_scanner.noise_classifier.body_classifier import BodyNonbodyClassifier
 from climate_scanner.sentiment_classifier.sentiment_classifier import SentimentInterface
@@ -26,13 +26,29 @@ def get_data(path):
     return os.path.join(_ROOT, 'data', path)
 
 
+country_code_map = {}
+with open(get_data('countr_codes.csv'), 'rt', encoding='utf-8', errors='ignore') as f:
+    f = csv.reader(f)
+    for header in f:
+        break
+
+    for row in f:
+        country_code_map[row[0].lower()] = row[1]
+
+
 class EnrichmentCoordinator:
-    def __init__(self):
+    def __init__(self, locs_disambiguation=False):
         # self.d2c = Doc2Climate()
         self.d2t = TrendsInnovationClassifier()
         self.d2s = SentimentInterface()
         self.entity_recognition = EntityExtractor()
         self.cleaner = BodyNonbodyClassifier()
+        self.locs_flag = locs_disambiguation
+        self.locs = None
+
+        if self.locs_flag:
+            from graphlocation.location import Locations
+            self.locs = Locations()
 
     def dummy_process(self, input_json):
         output_1 = self.d2c.get_climate_class(input_json)
@@ -55,16 +71,21 @@ class EnrichmentCoordinator:
 
     def process(self, article_text):
         article_text = self.clean_text(article_text)
-        trends_present_set = []
         trend_results = self.d2t.scan_predict(article_text)
         sentiment = self.d2s.text_to_sentiment(article_text)[0]
         # entities = self.entity_recognition.get_annotations(article_text)
         entities = []
         entities_dedupe_set = set()
         for item in trend_results:
-            item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'])
+            item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'][0])
             entity_list = []
             for entity in self.entity_recognition.get_annotations(item['text']):
+                if self.locs_flag:
+                    if entity[2]['entityType'] and 'Place' in entity[2]['entityType']:
+                        loc_class = self.locs.get_location(entity[0])
+                        if loc_class.country:
+                            entity[2]['country'] = country_code_map[loc_class.country]
+
                 if entity[0] not in entity_list:
                     entity_list.append(entity[0])
                     if entity[0] not in entities_dedupe_set:
@@ -72,7 +93,7 @@ class EnrichmentCoordinator:
                         entities_dedupe_set.add(entity[0])
 
             item['extract_entities'] = entity_list
-            print(item)
+            # print(item)
 
         results = {'trend_extractions': trend_results,
                    'article_sentiment': sentiment,
@@ -86,7 +107,7 @@ class EnrichmentCoordinator:
 
 def run_example():
     # Example json
-    ec = EnrichmentCoordinator()
+    ec = EnrichmentCoordinator(True)
     '''
     example_data = json.load(open(get_data('example_input.jsonl'), 'rt', encoding='utf-8', errors='ignore'))
 
