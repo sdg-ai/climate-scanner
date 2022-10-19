@@ -27,7 +27,7 @@ def get_data(path):
 
 
 country_code_map = {}
-with open(get_data('countr_codes.csv'), 'rt', encoding='utf-8', errors='ignore') as f:
+with open(get_data('country_codes.csv'), 'rt', encoding='utf-8', errors='ignore') as f:
     f = csv.reader(f)
     for header in f:
         break
@@ -69,7 +69,7 @@ class EnrichmentCoordinator:
         return ' '.join(cleaned_sentences)
 
 
-    def process(self, article_text):
+    def process(self, article_text, debug=False):
         article_text = self.clean_text(article_text)
         trend_results = self.d2t.scan_predict(article_text)
         sentiment = self.d2s.text_to_sentiment(article_text)[0]
@@ -93,6 +93,8 @@ class EnrichmentCoordinator:
                         entities_dedupe_set.add(entity[0])
 
             item['extract_entities'] = entity_list
+            if not debug:
+                del item['text']
             # print(item)
 
         results = {'trend_extractions': trend_results,
@@ -108,7 +110,7 @@ class EnrichmentCoordinator:
 def run_example():
     # Example json
     ec = EnrichmentCoordinator(True)
-    '''
+
     example_data = json.load(open(get_data('example_input.jsonl'), 'rt', encoding='utf-8', errors='ignore'))
 
     print('=============	Doc 	=============')
@@ -132,6 +134,7 @@ def run_example():
 
     # print('=============	Enriched Doc 	=============')
     # print(json.dumps(output_data))
+    '''
 
 
 if __name__ == '__main__':

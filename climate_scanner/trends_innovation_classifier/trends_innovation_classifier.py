@@ -219,6 +219,7 @@ class TrendsInnovationClassifier:
                         # Format prediction object
                         prediction_obj = {'string_indices': [list(current_index_set)[0][0],
                                                               list(current_index_set)[-1][1]],
+                                          'text': ' '.join(current_sentence_set),
                                           'prediction': tag}
                         if self.debug:
                             prediction_obj['text'] = ' '.join(current_sentence_set)
@@ -241,6 +242,7 @@ class TrendsInnovationClassifier:
                 # Format prediction object
                 prediction_obj = {'string_indices': [list(current_index_set)[0][0],
                                                       list(current_index_set)[-1][1]],
+                                  'text': ' '.join(current_sentence_set),
                                   'prediction': tag}
                 if self.debug:
                     prediction_obj['text'] = ' '.join(current_sentence_set)
