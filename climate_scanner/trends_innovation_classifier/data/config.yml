@@ -33,7 +33,7 @@ fasttext:
   bucket: 200000
 
 trends_demo:
-  threshold: 0.80
+  threshold: 0.42
   count: 4
 
 config:
