@@ -77,11 +77,12 @@ class EnrichmentCoordinator:
         entities = []
         entities_dedupe_set = set()
         for item in trend_results:
-            item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'][0])
+            item['extract_sentiment'] = self.d2s.text_to_sentiment(item['text'])[0]
             entity_list = []
             for entity in self.entity_recognition.get_annotations(item['text']):
                 if self.locs_flag:
-                    if entity[2]['entityType'] and 'Place' in entity[2]['entityType']:
+                    if entity[1] == 'GPE' or\
+                            (entity[2]['entityType'] and 'Place' in entity[2]['entityType']):
                         loc_class = self.locs.get_location(entity[0])
                         if loc_class.country:
                             entity[2]['country'] = country_code_map[loc_class.country]
@@ -111,14 +112,14 @@ def run_example():
     # Example json
     ec = EnrichmentCoordinator(True)
 
-    example_data = json.load(open(get_data('example_input.jsonl'), 'rt', encoding='utf-8', errors='ignore'))
+    example_data = json.load(open(get_data('Japan_LTS2021–bwa–1.json'), 'rt', encoding='utf-8', errors='ignore'))
 
-    print('=============	Doc 	=============')
-    print('ID:', '\t', example_data['ID'])
-    print('Title:', '\t', example_data['title'])
-    print('Document:', '\t', example_data['doc'])
+    # print('=============	Doc 	=============')
+    # print('ID:', '\t', example_data['ID'])
+    # print('Title:', '\t', example_data['title'])
+    # print('Document:', '\t', example_data['doc'])
 
-    output_data = ec.process(example_data['doc'])
+    output_data = ec.process(example_data['text'])
     json.dump(output_data, open(get_data('example_output.jsonl'), 'wt', encoding='utf-8', errors='ignore'))
     '''
 
