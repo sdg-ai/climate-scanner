@@ -1,0 +1,2046 @@
+{
+  "afghanistan": [
+    "AF",
+    29121286,
+    33.0,
+    66.0,
+    [
+      "Asia/Kabul"
+    ]
+  ],
+  "albania": [
+    "AL",
+    2986952,
+    41.0,
+    20.0,
+    [
+      "Europe/Tirane"
+    ]
+  ],
+  "algeria": [
+    "DZ",
+    34586184,
+    28.0,
+    3.0,
+    [
+      "Africa/Algiers"
+    ]
+  ],
+  "american samoa": [
+    "AS"
+  ],
+  "andorra": [
+    "AD",
+    84000,
+    42.55,
+    1.58333,
+    [
+      "Europe/Andorra"
+    ]
+  ],
+  "angola": [
+    "AO",
+    13068161,
+    -12.5,
+    18.5,
+    [
+      "Africa/Luanda"
+    ]
+  ],
+  "anguilla": [
+    "AI"
+  ],
+  "antarctica": [
+    "AQ"
+  ],
+  "antigua and barbuda": [
+    "AG",
+    86754,
+    17.05,
+    -61.8,
+    [
+      "America/Antigua"
+    ]
+  ],
+  "argentina": [
+    "AR",
+    41343201,
+    -34.0,
+    -64.0,
+    []
+  ],
+  "armenia": [
+    "AM",
+    2968000,
+    40.25,
+    45.0,
+    [
+      "Asia/Yerevan"
+    ]
+  ],
+  "aruba": [
+    "AW",
+    71566,
+    12.5,
+    -69.96667,
+    [
+      "America/Aruba"
+    ]
+  ],
+  "ascension and tristan da cunha saint helena": [
+    "SH"
+  ],
+  "australia": [
+    "AU",
+    21515754,
+    -25.0,
+    135.0,
+    [
+      "Australia/Melbourne",
+      "Australia/Adelaide",
+      "Australia/Perth"
+    ]
+  ],
+  "austria": [
+    "AT",
+    8205000,
+    47.33333,
+    13.33333,
+    [
+      "Europe/Vienna"
+    ]
+  ],
+  "azerbaijan": [
+    "AZ",
+    8303512,
+    40.5,
+    47.5,
+    [
+      "Asia/Baku"
+    ]
+  ],
+  "bahamas": [
+    "BS",
+    301790,
+    25.04082,
+    -77.37122,
+    [
+      "America/Nassau"
+    ]
+  ],
+  "bahrain": [
+    "BH",
+    738004,
+    26.03333,
+    50.55,
+    [
+      "Asia/Bahrain"
+    ]
+  ],
+  "bangladesh": [
+    "BD",
+    156118464,
+    24.0,
+    90.0,
+    [
+      "Asia/Dhaka"
+    ]
+  ],
+  "barbados": [
+    "BB",
+    285653,
+    13.16453,
+    -59.55165,
+    [
+      "America/Barbados"
+    ]
+  ],
+  "belarus": [
+    "BY",
+    9685000,
+    53.0,
+    28.0,
+    [
+      "Europe/Minsk"
+    ]
+  ],
+  "belgium": [
+    "BE",
+    10403000,
+    50.75,
+    4.5,
+    [
+      "Europe/Brussels"
+    ]
+  ],
+  "belize": [
+    "BZ",
+    314522,
+    17.25,
+    -88.75,
+    [
+      "America/Belize"
+    ]
+  ],
+  "benin": [
+    "BJ",
+    9056010,
+    9.5,
+    2.25,
+    [
+      "Africa/Porto-Novo"
+    ]
+  ],
+  "bermuda": [
+    "BM"
+  ],
+  "bhutan": [
+    "BT",
+    699847,
+    27.5,
+    90.5,
+    [
+      "Asia/Thimphu"
+    ]
+  ],
+  "bolivarian republic of venezuela": [
+    "VE",
+    27223228,
+    8.0,
+    -66.0,
+    [
+      "America/Caracas"
+    ]
+  ],
+  "bolivia": [
+    "BO"
+  ],
+  "bolivia (plurinational state of)": [
+    "BO"
+  ],
+  "bonaire": [
+    "BQ",
+    18012,
+    12.21286,
+    -68.29445,
+    [
+      "America/Kralendijk"
+    ]
+  ],
+  "bonaire (sint eustatius and saba)": [
+    "BQ"
+  ],
+  "bosnia and herzegovina": [
+    "BA",
+    4590000,
+    44.25,
+    17.83333,
+    [
+      "Europe/Sarajevo"
+    ]
+  ],
+  "botswana": [
+    "BW",
+    2029307,
+    -22.0,
+    24.0,
+    [
+      "Africa/Gaborone"
+    ]
+  ],
+  "bouvet island": [
+    "BV"
+  ],
+  "brazil": [
+    "BR",
+    201103330,
+    -10.0,
+    -55.0,
+    []
+  ],
+  "british indian ocean territory": [
+    "IO"
+  ],
+  "british virgin islands": [
+    "VG"
+  ],
+  "brunei darussalam": [
+    "BN",
+    395027,
+    4.5,
+    114.66667,
+    [
+      "Asia/Brunei"
+    ]
+  ],
+  "bulgaria": [
+    "BG",
+    7148785,
+    42.66667,
+    25.25,
+    [
+      "Europe/Sofia"
+    ]
+  ],
+  "burkina faso": [
+    "BF",
+    16241811,
+    12.5,
+    -1.66667,
+    [
+      "Africa/Ouagadougou"
+    ]
+  ],
+  "burundi": [
+    "BI",
+    9863117,
+    -3.5,
+    30.0,
+    [
+      "Africa/Bujumbura"
+    ]
+  ],
+  "cambodia": [
+    "KH",
+    14453680,
+    13.0,
+    105.0,
+    [
+      "Asia/Phnom_Penh"
+    ]
+  ],
+  "cameroon": [
+    "CM",
+    19294149,
+    6.0,
+    12.5,
+    [
+      "Africa/Douala"
+    ]
+  ],
+  "canada": [
+    "CA",
+    33679000,
+    60.10867,
+    -113.64258,
+    [
+      "America/Toronto",
+      "America/St_Johns",
+      "America/Halifax",
+      "America/Winnipeg",
+      "America/Regina",
+      "America/Edmonton",
+      "America/Vancouver"
+    ]
+  ],
+  "cape verde": [
+    "CV",
+    508659,
+    16.0,
+    -24.0,
+    [
+      "Atlantic/Cape_Verde"
+    ]
+  ],
+  "cayman islands": [
+    "KY"
+  ],
+  "central african republic": [
+    "CF",
+    4844927,
+    7.0,
+    21.0,
+    [
+      "Africa/Bangui"
+    ]
+  ],
+  "chad": [
+    "TD",
+    10543464,
+    15.0,
+    19.0,
+    [
+      "Africa/Ndjamena"
+    ]
+  ],
+  "chile": [
+    "CL",
+    16746491,
+    -30.0,
+    -71.0,
+    []
+  ],
+  "china": [
+    "CN",
+    1330044000,
+    35.0,
+    105.0,
+    []
+  ],
+  "christmas island": [
+    "CX"
+  ],
+  "cocos (keeling) islands": [
+    "CC"
+  ],
+  "colombia": [
+    "CO",
+    47790000,
+    4.0,
+    -73.25,
+    [
+      "America/Bogota"
+    ]
+  ],
+  "comoros": [
+    "KM",
+    773407,
+    -12.23333,
+    44.44553,
+    [
+      "Indian/Comoro"
+    ]
+  ],
+  "congo": [
+    "CD",
+    70916439,
+    -2.5,
+    23.5,
+    [],
+    3039126,
+    -1.0,
+    15.5,
+    [
+      "Africa/Brazzaville"
+    ]
+  ],
+  "congo (the democratic republic of the)": [
+    "CD"
+  ],
+  "cook islands": [
+    "CK",
+    21388,
+    -21.24842,
+    -159.78516,
+    [
+      "Pacific/Rarotonga"
+    ]
+  ],
+  "costa rica": [
+    "CR",
+    4516220,
+    10.0,
+    -84.0,
+    [
+      "America/Costa_Rica"
+    ]
+  ],
+  "croatia": [
+    "HR",
+    4284889,
+    45.16667,
+    15.5,
+    [
+      "Europe/Zagreb"
+    ]
+  ],
+  "cuba": [
+    "CU",
+    11423000,
+    22.0,
+    -79.5,
+    [
+      "America/Havana"
+    ]
+  ],
+  "cura\u00e7ao": [
+    "CW",
+    141766,
+    12.16667,
+    -68.96667,
+    [
+      "America/Curacao"
+    ]
+  ],
+  "cyprus": [
+    "CY",
+    1102677,
+    35.0,
+    33.0,
+    []
+  ],
+  "czech republic": [
+    "CZ",
+    10476000,
+    49.75,
+    15.0,
+    [
+      "Europe/Prague"
+    ]
+  ],
+  "c\u00f4te d'ivoire": [
+    "CI",
+    21058798,
+    8.0,
+    -5.5,
+    [
+      "Africa/Abidjan"
+    ]
+  ],
+  "democratic people's republic of korea": [
+    "KP",
+    22912177,
+    40.0,
+    127.0,
+    [
+      "Asia/Pyongyang"
+    ]
+  ],
+  "denmark": [
+    "DK",
+    5484000,
+    56.0,
+    10.0,
+    [
+      "Europe/Copenhagen"
+    ]
+  ],
+  "djibouti": [
+    "DJ",
+    740528,
+    11.83333,
+    42.5,
+    [
+      "Africa/Djibouti"
+    ]
+  ],
+  "dominica": [
+    "DM",
+    72813,
+    15.5,
+    -61.33333,
+    [
+      "America/Dominica"
+    ]
+  ],
+  "dominican republic": [
+    "DO",
+    9823821,
+    19.0,
+    -70.66667,
+    [
+      "America/Santo_Domingo"
+    ]
+  ],
+  "dutch part": [
+    "SX"
+  ],
+  "ecuador": [
+    "EC",
+    14790608,
+    -1.25,
+    -78.25,
+    []
+  ],
+  "egypt": [
+    "EG",
+    80471869,
+    27.0,
+    30.0,
+    [
+      "Africa/Cairo"
+    ]
+  ],
+  "el salvador": [
+    "SV",
+    6052064,
+    13.83333,
+    -88.91667,
+    [
+      "America/El_Salvador"
+    ]
+  ],
+  "equatorial guinea": [
+    "GQ",
+    1014999,
+    1.7,
+    10.5,
+    [
+      "Africa/Malabo"
+    ]
+  ],
+  "eritrea": [
+    "ER",
+    5792984,
+    15.0,
+    39.0,
+    [
+      "Africa/Asmara"
+    ]
+  ],
+  "estonia": [
+    "EE",
+    1291170,
+    59.0,
+    26.0,
+    [
+      "Europe/Tallinn"
+    ]
+  ],
+  "ethiopia": [
+    "ET",
+    88013491,
+    9.0,
+    39.5,
+    [
+      "Africa/Addis_Ababa"
+    ]
+  ],
+  "falkland islands": [
+    "FK"
+  ],
+  "faroe islands": [
+    "FO"
+  ],
+  "federated states of micronesia": [
+    "FM"
+  ],
+  "fiji": [
+    "FJ",
+    875983,
+    -18.0,
+    178.0,
+    [
+      "Pacific/Fiji"
+    ]
+  ],
+  "finland": [
+    "FI",
+    5244000,
+    64.0,
+    26.0,
+    [
+      "Europe/Helsinki"
+    ]
+  ],
+  "france": [
+    "FR",
+    64768389,
+    46.0,
+    2.0,
+    [
+      "Europe/Paris"
+    ]
+  ],
+  "french guiana": [
+    "GF"
+  ],
+  "french part": [
+    "MF"
+  ],
+  "french polynesia": [
+    "PF"
+  ],
+  "french southern territories": [
+    "TF",
+    140,
+    -43.0,
+    67.0,
+    []
+  ],
+  "gabon": [
+    "GA",
+    1545255,
+    -1.0,
+    11.75,
+    [
+      "Africa/Libreville"
+    ]
+  ],
+  "gambia": [
+    "GM",
+    1593256,
+    13.5,
+    -15.5,
+    [
+      "Africa/Banjul"
+    ]
+  ],
+  "georgia": [
+    "GE",
+    4630000,
+    41.99998,
+    43.4999,
+    [
+      "Asia/Tbilisi"
+    ]
+  ],
+  "germany": [
+    "DE",
+    81802257,
+    51.5,
+    10.5,
+    [
+      "Europe/Berlin"
+    ]
+  ],
+  "ghana": [
+    "GH",
+    24339838,
+    8.1,
+    -1.2,
+    [
+      "Africa/Accra"
+    ]
+  ],
+  "gibraltar": [
+    "GI"
+  ],
+  "greece": [
+    "GR",
+    11000000,
+    39.0,
+    22.0,
+    [
+      "Europe/Athens"
+    ]
+  ],
+  "greenland": [
+    "GL"
+  ],
+  "grenada": [
+    "GD",
+    107818,
+    12.11667,
+    -61.66667,
+    [
+      "America/Grenada"
+    ]
+  ],
+  "guadeloupe": [
+    "GP"
+  ],
+  "guam": [
+    "GU"
+  ],
+  "guatemala": [
+    "GT",
+    13550440,
+    15.5,
+    -90.25,
+    [
+      "America/Guatemala"
+    ]
+  ],
+  "guernsey": [
+    "GG"
+  ],
+  "guinea": [
+    "GN",
+    10324025,
+    10.83333,
+    -10.66667,
+    [
+      "Africa/Conakry"
+    ]
+  ],
+  "guinea-bissau": [
+    "GW",
+    1565126,
+    12.0,
+    -15.0,
+    [
+      "Africa/Bissau"
+    ]
+  ],
+  "guyana": [
+    "GY",
+    748486,
+    5.0,
+    -59.0,
+    [
+      "America/Guyana"
+    ]
+  ],
+  "haiti": [
+    "HT",
+    9648924,
+    19.0,
+    -72.41667,
+    [
+      "America/Port-au-Prince"
+    ]
+  ],
+  "heard island and mcdonald islands": [
+    "HM"
+  ],
+  "holy see": [
+    "VA",
+    921,
+    41.90225,
+    12.4533,
+    [
+      "Europe/Vatican"
+    ]
+  ],
+  "honduras": [
+    "HN",
+    7989415,
+    15.0,
+    -86.5,
+    [
+      "America/Tegucigalpa"
+    ]
+  ],
+  "hong kong": [
+    "HK",
+    6898686,
+    22.25,
+    114.16667,
+    [
+      "Asia/Hong_Kong"
+    ]
+  ],
+  "hungary": [
+    "HU",
+    9982000,
+    47.0,
+    20.0,
+    [
+      "Europe/Budapest"
+    ]
+  ],
+  "iceland": [
+    "IS",
+    308910,
+    65.0,
+    -18.0,
+    [
+      "Atlantic/Reykjavik"
+    ]
+  ],
+  "india": [
+    "IN",
+    1173108018,
+    22.0,
+    79.0,
+    [
+      "Asia/Kolkata"
+    ]
+  ],
+  "indonesia": [
+    "ID",
+    242968342,
+    -5.0,
+    120.0,
+    []
+  ],
+  "iran": [
+    "IR"
+  ],
+  "iran (islamic republic of)": [
+    "IR"
+  ],
+  "iraq": [
+    "IQ",
+    29671605,
+    33.0,
+    44.0,
+    [
+      "Asia/Baghdad"
+    ]
+  ],
+  "ireland": [
+    "IE",
+    4622917,
+    53.0,
+    -8.0,
+    [
+      "Europe/Dublin"
+    ]
+  ],
+  "islamic republic of iran": [
+    "IR",
+    76923300,
+    32.0,
+    53.0,
+    [
+      "Asia/Tehran"
+    ]
+  ],
+  "isle of man": [
+    "IM"
+  ],
+  "israel": [
+    "IL",
+    7353985,
+    31.5,
+    34.75,
+    [
+      "Asia/Jerusalem"
+    ]
+  ],
+  "italy": [
+    "IT",
+    60340328,
+    42.83333,
+    12.83333,
+    [
+      "Europe/Rome"
+    ]
+  ],
+  "jamaica": [
+    "JM",
+    2847232,
+    18.16667,
+    -77.25,
+    [
+      "America/Jamaica"
+    ]
+  ],
+  "japan": [
+    "JP",
+    127288000,
+    35.68536,
+    139.75309,
+    [
+      "Asia/Tokyo"
+    ]
+  ],
+  "jersey": [
+    "JE"
+  ],
+  "jordan": [
+    "JO",
+    6407085,
+    31.0,
+    36.0,
+    [
+      "Asia/Amman"
+    ]
+  ],
+  "kazakhstan": [
+    "KZ",
+    15340000,
+    48.0,
+    68.0,
+    []
+  ],
+  "kenya": [
+    "KE",
+    40046566,
+    1.0,
+    38.0,
+    [
+      "Africa/Nairobi"
+    ]
+  ],
+  "kiribati": [
+    "KI",
+    92533,
+    1.421,
+    172.984,
+    []
+  ],
+  "korea": [
+    "KR"
+  ],
+  "korea (democratic people's republic of)": [
+    "KP"
+  ],
+  "korea (republic of)": [
+    "KR"
+  ],
+  "kuwait": [
+    "KW",
+    2789132,
+    29.5,
+    47.75,
+    [
+      "Asia/Kuwait"
+    ]
+  ],
+  "kyrgyzstan": [
+    "KG",
+    5776500,
+    41.5,
+    75.0,
+    [
+      "Asia/Bishkek"
+    ]
+  ],
+  "lao people's democratic republic": [
+    "LA",
+    6368162,
+    18.0,
+    105.0,
+    [
+      "Asia/Vientiane"
+    ]
+  ],
+  "latvia": [
+    "LV",
+    2217969,
+    57.0,
+    25.0,
+    [
+      "Europe/Riga"
+    ]
+  ],
+  "lebanon": [
+    "LB",
+    4125247,
+    33.83333,
+    35.83333,
+    [
+      "Asia/Beirut"
+    ]
+  ],
+  "lesotho": [
+    "LS",
+    1919552,
+    -29.5,
+    28.25,
+    [
+      "Africa/Maseru"
+    ]
+  ],
+  "liberia": [
+    "LR",
+    3685076,
+    6.5,
+    -9.5,
+    [
+      "Africa/Monrovia"
+    ]
+  ],
+  "libya": [
+    "LY",
+    6461454,
+    28.0,
+    17.0,
+    [
+      "Africa/Tripoli"
+    ]
+  ],
+  "liechtenstein": [
+    "LI",
+    35000,
+    47.16667,
+    9.53333,
+    [
+      "Europe/Vaduz"
+    ]
+  ],
+  "lithuania": [
+    "LT",
+    2944459,
+    55.41667,
+    24.0,
+    [
+      "Europe/Vilnius"
+    ]
+  ],
+  "luxembourg": [
+    "LU",
+    497538,
+    49.75,
+    6.16667,
+    [
+      "Europe/Luxembourg"
+    ]
+  ],
+  "macao": [
+    "MO",
+    449198,
+    22.15778,
+    113.55972,
+    [
+      "Asia/Shanghai"
+    ]
+  ],
+  "macedonia": [
+    "MK",
+    2062294,
+    41.66667,
+    21.75,
+    [
+      "Europe/Skopje"
+    ]
+  ],
+  "macedonia (the former yugoslav republic of)": [
+    "MK"
+  ],
+  "madagascar": [
+    "MG",
+    21281844,
+    -20.0,
+    47.0,
+    [
+      "Indian/Antananarivo"
+    ]
+  ],
+  "malawi": [
+    "MW",
+    15447500,
+    -13.5,
+    34.0,
+    [
+      "Africa/Blantyre"
+    ]
+  ],
+  "malaysia": [
+    "MY",
+    28274729,
+    2.5,
+    112.5,
+    []
+  ],
+  "maldives": [
+    "MV",
+    395650,
+    3.2,
+    73.0,
+    [
+      "Indian/Maldives"
+    ]
+  ],
+  "mali": [
+    "ML",
+    13796354,
+    18.0,
+    -2.0,
+    [
+      "Africa/Bamako"
+    ]
+  ],
+  "malta": [
+    "MT",
+    403000,
+    35.91667,
+    14.43333,
+    [
+      "Europe/Malta"
+    ]
+  ],
+  "malvinas": [
+    "FK"
+  ],
+  "marshall islands": [
+    "MH"
+  ],
+  "martinique": [
+    "MQ"
+  ],
+  "mauritania": [
+    "MR",
+    3205060,
+    20.25,
+    -10.5,
+    [
+      "Africa/Nouakchott"
+    ]
+  ],
+  "mauritius": [
+    "MU",
+    1294104,
+    -20.3,
+    57.58333,
+    [
+      "Indian/Mauritius"
+    ]
+  ],
+  "mayotte": [
+    "YT"
+  ],
+  "mexico": [
+    "MX",
+    112468855,
+    23.0,
+    -102.0,
+    []
+  ],
+  "micronesia": [
+    "FM"
+  ],
+  "micronesia (federated states of)": [
+    "FM"
+  ],
+  "moldova": [
+    "MD"
+  ],
+  "moldova (republic of)": [
+    "MD"
+  ],
+  "monaco": [
+    "MC",
+    32965,
+    43.73141,
+    7.41903,
+    [
+      "Europe/Monaco"
+    ]
+  ],
+  "mongolia": [
+    "MN",
+    3086918,
+    46.0,
+    105.0,
+    []
+  ],
+  "montenegro": [
+    "ME",
+    666730,
+    42.75,
+    19.25,
+    [
+      "Europe/Podgorica"
+    ]
+  ],
+  "montserrat": [
+    "MS"
+  ],
+  "morocco": [
+    "MA",
+    33848242,
+    32.0,
+    -6.0,
+    [
+      "Africa/Casablanca"
+    ]
+  ],
+  "mozambique": [
+    "MZ",
+    22061451,
+    -18.25,
+    35.0,
+    [
+      "Africa/Maputo"
+    ]
+  ],
+  "myanmar": [
+    "MM",
+    53414374,
+    21.0,
+    96.0,
+    [
+      "Asia/Yangon"
+    ]
+  ],
+  "namibia": [
+    "NA",
+    2128471,
+    -22.0,
+    17.0,
+    [
+      "Africa/Windhoek"
+    ]
+  ],
+  "nauru": [
+    "NR",
+    10065,
+    -0.517,
+    166.933,
+    [
+      "Pacific/Nauru"
+    ]
+  ],
+  "nepal": [
+    "NP",
+    28951852,
+    28.0,
+    84.0,
+    [
+      "Asia/Kathmandu"
+    ]
+  ],
+  "netherlands": [
+    "NL",
+    16645000,
+    52.25,
+    5.75,
+    [
+      "Europe/Amsterdam"
+    ]
+  ],
+  "new caledonia": [
+    "NC"
+  ],
+  "new zealand": [
+    "NZ",
+    4252277,
+    -42.0,
+    174.0,
+    []
+  ],
+  "nicaragua": [
+    "NI",
+    5995928,
+    13.0,
+    -85.0,
+    [
+      "America/Managua"
+    ]
+  ],
+  "niger": [
+    "NE",
+    15878271,
+    18.0,
+    9.0,
+    [
+      "Africa/Niamey"
+    ]
+  ],
+  "nigeria": [
+    "NG",
+    154000000,
+    10.0,
+    8.0,
+    [
+      "Africa/Lagos"
+    ]
+  ],
+  "niue": [
+    "NU",
+    2166,
+    -19.03333,
+    -169.86667,
+    [
+      "Pacific/Niue"
+    ]
+  ],
+  "norfolk island": [
+    "NF"
+  ],
+  "northern mariana islands": [
+    "MP"
+  ],
+  "norway": [
+    "NO",
+    5009150,
+    62.0,
+    10.0,
+    [
+      "Europe/Oslo"
+    ]
+  ],
+  "oman": [
+    "OM",
+    2967717,
+    21.0,
+    57.0,
+    [
+      "Asia/Muscat"
+    ]
+  ],
+  "pakistan": [
+    "PK",
+    184404791,
+    30.0,
+    70.0,
+    [
+      "Asia/Karachi"
+    ]
+  ],
+  "palau": [
+    "PW"
+  ],
+  "palestine": [
+    "PS",
+    3800000,
+    31.92157,
+    35.20329,
+    []
+  ],
+  "palestine (state of)": [
+    "PS"
+  ],
+  "panama": [
+    "PA",
+    3410676,
+    9.0,
+    -80.0,
+    [
+      "America/Panama"
+    ]
+  ],
+  "papua new guinea": [
+    "PG",
+    6064515,
+    -6.0,
+    147.0,
+    []
+  ],
+  "paraguay": [
+    "PY",
+    6375830,
+    -23.33333,
+    -58.0,
+    [
+      "America/Asuncion"
+    ]
+  ],
+  "peru": [
+    "PE",
+    29907003,
+    -10.0,
+    -75.25,
+    [
+      "America/Lima"
+    ]
+  ],
+  "philippines": [
+    "PH",
+    99900177,
+    13.0,
+    122.0,
+    [
+      "Asia/Manila"
+    ]
+  ],
+  "pitcairn": [
+    "PN"
+  ],
+  "plurinational state of bolivia": [
+    "BO",
+    9947418,
+    -17.0,
+    -65.0,
+    [
+      "America/La_Paz"
+    ]
+  ],
+  "poland": [
+    "PL",
+    38500000,
+    52.0,
+    20.0,
+    [
+      "Europe/Warsaw"
+    ]
+  ],
+  "portugal": [
+    "PT",
+    10676000,
+    39.6945,
+    -8.13057,
+    [
+      "Europe/Lisbon"
+    ]
+  ],
+  "province of china taiwan": [
+    "TW"
+  ],
+  "puerto rico": [
+    "PR"
+  ],
+  "qatar": [
+    "QA",
+    840926,
+    25.5,
+    51.25,
+    [
+      "Asia/Qatar"
+    ]
+  ],
+  "republic of korea": [
+    "KR",
+    48422644,
+    36.5,
+    127.75,
+    [
+      "Asia/Seoul"
+    ]
+  ],
+  "republic of moldova": [
+    "MD",
+    4324000,
+    47.25,
+    28.58333,
+    [
+      "Europe/Chisinau"
+    ]
+  ],
+  "romania": [
+    "RO",
+    21959278,
+    46.0,
+    25.0,
+    [
+      "Europe/Bucharest"
+    ]
+  ],
+  "russian federation": [
+    "RU",
+    140702000,
+    60.0,
+    100.0,
+    []
+  ],
+  "rwanda": [
+    "RW",
+    11055976,
+    -2.0,
+    30.0,
+    [
+      "Africa/Kigali"
+    ]
+  ],
+  "r\u00e9union": [
+    "RE"
+  ],
+  "saint barth\u00e9lemy": [
+    "BL",
+    8450,
+    17.9,
+    -62.8257,
+    [
+      "America/St_Barthelemy"
+    ]
+  ],
+  "saint helena": [
+    "SH"
+  ],
+  "saint helena (ascension and tristan da cunha)": [
+    "SH"
+  ],
+  "saint kitts and nevis": [
+    "KN",
+    51134,
+    17.33333,
+    -62.75,
+    [
+      "America/St_Kitts"
+    ]
+  ],
+  "saint lucia": [
+    "LC",
+    160922,
+    13.88333,
+    -60.96667,
+    [
+      "America/St_Lucia"
+    ]
+  ],
+  "saint martin": [
+    "MF",
+    35925,
+    18.06667,
+    -63.06667,
+    [
+      "America/Marigot"
+    ]
+  ],
+  "saint pierre and miquelon": [
+    "PM"
+  ],
+  "saint vincent and the grenadines": [
+    "VC",
+    104217,
+    13.08333,
+    -61.2,
+    [
+      "America/St_Vincent"
+    ]
+  ],
+  "samoa": [
+    "WS",
+    192001,
+    -13.8,
+    -172.13333,
+    [
+      "Pacific/Apia"
+    ]
+  ],
+  "san marino": [
+    "SM",
+    31477,
+    43.9367,
+    12.4463,
+    [
+      "Europe/San_Marino"
+    ]
+  ],
+  "sao tome and principe": [
+    "ST",
+    175808,
+    1.0,
+    7.0,
+    [
+      "Africa/Sao_Tome"
+    ]
+  ],
+  "saudi arabia": [
+    "SA",
+    25731776,
+    25.0,
+    45.0,
+    [
+      "Asia/Riyadh"
+    ]
+  ],
+  "senegal": [
+    "SN",
+    12323252,
+    14.5,
+    -14.25,
+    [
+      "Africa/Dakar"
+    ]
+  ],
+  "serbia": [
+    "RS",
+    7344847,
+    44.81892,
+    20.45998,
+    [
+      "Europe/Belgrade"
+    ]
+  ],
+  "seychelles": [
+    "SC",
+    88340,
+    -4.58333,
+    55.66667,
+    [
+      "Indian/Mahe"
+    ]
+  ],
+  "sierra leone": [
+    "SL",
+    5245695,
+    8.5,
+    -11.5,
+    [
+      "Africa/Freetown"
+    ]
+  ],
+  "singapore": [
+    "SG",
+    4701069,
+    1.36667,
+    103.8,
+    [
+      "Asia/Singapore"
+    ]
+  ],
+  "sint eustatius and saba bonaire": [
+    "BQ"
+  ],
+  "sint maarten": [
+    "SX",
+    37429,
+    18.04167,
+    -63.06667,
+    [
+      "America/Lower_Princes"
+    ]
+  ],
+  "slovakia": [
+    "SK",
+    5455000,
+    48.66667,
+    19.5,
+    [
+      "Europe/Bratislava"
+    ]
+  ],
+  "slovenia": [
+    "SI",
+    2007000,
+    46.08333,
+    15.0,
+    [
+      "Europe/Ljubljana"
+    ]
+  ],
+  "solomon islands": [
+    "SB",
+    559198,
+    -8.0,
+    159.0,
+    [
+      "Pacific/Guadalcanal"
+    ]
+  ],
+  "somalia": [
+    "SO",
+    10112453,
+    6.0,
+    48.0,
+    [
+      "Africa/Mogadishu"
+    ]
+  ],
+  "south africa": [
+    "ZA",
+    49000000,
+    -29.0,
+    24.0,
+    [
+      "Africa/Johannesburg"
+    ]
+  ],
+  "south georgia and the south sandwich islands": [
+    "GS"
+  ],
+  "south sudan": [
+    "SS",
+    8260490,
+    7.5,
+    30.0,
+    [
+      "Africa/Juba"
+    ]
+  ],
+  "spain": [
+    "ES",
+    46505963,
+    40.0,
+    -4.0,
+    [
+      "Europe/Madrid"
+    ]
+  ],
+  "sri lanka": [
+    "LK",
+    21513990,
+    7.75,
+    80.75,
+    [
+      "Asia/Colombo"
+    ]
+  ],
+  "state of palestine": [
+    "PS"
+  ],
+  "sudan": [
+    "SD",
+    35000000,
+    16.0,
+    30.0,
+    [
+      "Africa/Khartoum"
+    ]
+  ],
+  "suriname": [
+    "SR",
+    492829,
+    4.0,
+    -56.0,
+    [
+      "America/Paramaribo"
+    ]
+  ],
+  "svalbard and jan mayen": [
+    "SJ"
+  ],
+  "swaziland": [
+    "SZ",
+    1354051,
+    -26.5,
+    31.5,
+    [
+      "Africa/Mbabane"
+    ]
+  ],
+  "sweden": [
+    "SE",
+    9828655,
+    62.0,
+    15.0,
+    [
+      "Europe/Stockholm"
+    ]
+  ],
+  "switzerland": [
+    "CH",
+    7581000,
+    47.00016,
+    8.01427,
+    [
+      "Europe/Zurich"
+    ]
+  ],
+  "syrian arab republic": [
+    "SY",
+    22198110,
+    35.0,
+    38.0,
+    [
+      "Asia/Damascus"
+    ]
+  ],
+  "taiwan": [
+    "TW",
+    22894384,
+    24.0,
+    121.0,
+    [
+      "Asia/Taipei"
+    ]
+  ],
+  "taiwan (province of china)": [
+    "TW"
+  ],
+  "tajikistan": [
+    "TJ",
+    7487489,
+    39.0,
+    71.0,
+    [
+      "Asia/Dushanbe"
+    ]
+  ],
+  "tanzania": [
+    "TZ"
+  ],
+  "tanzania (united republic of)": [
+    "TZ"
+  ],
+  "thailand": [
+    "TH",
+    67089500,
+    15.5,
+    101.0,
+    [
+      "Asia/Bangkok"
+    ]
+  ],
+  "the democratic republic of the congo": [
+    "CD"
+  ],
+  "the former yugoslav republic of macedonia": [
+    "MK"
+  ],
+  "timor-leste": [
+    "TL",
+    1154625,
+    -8.83333,
+    125.75,
+    [
+      "Asia/Dili"
+    ]
+  ],
+  "togo": [
+    "TG",
+    6587239,
+    8.66667,
+    1.08333,
+    [
+      "Africa/Lome"
+    ]
+  ],
+  "tokelau": [
+    "TK"
+  ],
+  "tonga": [
+    "TO",
+    122580,
+    -20.0,
+    -175.0,
+    [
+      "Pacific/Tongatapu"
+    ]
+  ],
+  "trinidad and tobago": [
+    "TT",
+    1328019,
+    11.0,
+    -61.0,
+    [
+      "America/Port_of_Spain"
+    ]
+  ],
+  "tunisia": [
+    "TN",
+    10589025,
+    34.0,
+    9.0,
+    [
+      "Africa/Tunis"
+    ]
+  ],
+  "turkey": [
+    "TR",
+    77804122,
+    39.0,
+    35.0,
+    [
+      "Europe/Istanbul"
+    ]
+  ],
+  "turkmenistan": [
+    "TM",
+    4940916,
+    39.75,
+    59.66667,
+    [
+      "Asia/Ashgabat"
+    ]
+  ],
+  "turks and caicos islands": [
+    "TC"
+  ],
+  "tuvalu": [
+    "TV",
+    10472,
+    -8.51719,
+    179.14478,
+    [
+      "Pacific/Funafuti"
+    ]
+  ],
+  "u.s. virgin islands": [
+    "VI"
+  ],
+  "uganda": [
+    "UG",
+    33398682,
+    1.25,
+    32.5,
+    [
+      "Africa/Kampala"
+    ]
+  ],
+  "ukraine": [
+    "UA",
+    45415596,
+    49.0,
+    32.0,
+    []
+  ],
+  "united arab emirates": [
+    "AE",
+    4975593,
+    23.75,
+    54.5,
+    [
+      "Asia/Dubai"
+    ]
+  ],
+  "united kingdom": [
+    "GB",
+    62348447,
+    54.75844,
+    -2.69531,
+    [
+      "Europe/London"
+    ]
+  ],
+  "united republic of tanzania": [
+    "TZ",
+    41892895,
+    -6.0,
+    35.0,
+    [
+      "Africa/Dar_es_Salaam"
+    ]
+  ],
+  "united states": [
+    "US",
+    310232863,
+    39.76,
+    -98.5,
+    [
+      "America/New_York",
+      "America/Chicago",
+      "America/Denver",
+      "America/Phoenix",
+      "America/Los_Angeles",
+      "America/Anchorage",
+      "Pacific/Honolulu"
+    ]
+  ],
+  "united states minor outlying islands": [
+    "UM"
+  ],
+  "uruguay": [
+    "UY",
+    3477000,
+    -33.0,
+    -56.0,
+    [
+      "America/Montevideo"
+    ]
+  ],
+  "uzbekistan": [
+    "UZ",
+    27865738,
+    41.66667,
+    63.83333,
+    []
+  ],
+  "vanuatu": [
+    "VU",
+    221552,
+    -16.0,
+    167.0,
+    [
+      "Pacific/Efate"
+    ]
+  ],
+  "vatican city state": [
+    "VA"
+  ],
+  "venezuela": [
+    "VE"
+  ],
+  "venezuela (bolivarian republic of)": [
+    "VE"
+  ],
+  "viet nam": [
+    "VN",
+    89571130,
+    16.16667,
+    107.83333,
+    [
+      "Asia/Ho_Chi_Minh"
+    ]
+  ],
+  "virgin islands": [
+    "VI"
+  ],
+  "virgin islands (british)": [
+    "VG"
+  ],
+  "virgin islands (u.s.)": [
+    "VI"
+  ],
+  "wallis and futuna": [
+    "WF"
+  ],
+  "western sahara": [
+    "EH"
+  ],
+  "yemen": [
+    "YE",
+    23495361,
+    15.5,
+    47.5,
+    [
+      "Asia/Aden"
+    ]
+  ],
+  "zambia": [
+    "ZM",
+    13460305,
+    -14.33333,
+    28.5,
+    [
+      "Africa/Lusaka"
+    ]
+  ],
+  "zimbabwe": [
+    "ZW",
+    13061000,
+    -19.0,
+    29.75,
+    [
+      "Africa/Harare"
+    ]
+  ],
+  "\u00e5land islands": [
+    "AX"
+  ]
+}
