@@ -26,14 +26,9 @@ def get_data(path):
     return os.path.join(_ROOT, 'data', path)
 
 
-country_code_map = {}
-with open(get_data('country_codes.csv'), 'rt', encoding='utf-8', errors='ignore') as f:
-    f = csv.reader(f)
-    for header in f:
-        break
 
-    for row in f:
-        country_code_map[row[0].lower()] = row[1]
+with open(get_data('country_codes.json'), 'rt', encoding='utf-8', errors='ignore') as f:
+    country_code_map = json.load(f)
 
 
 class EnrichmentCoordinator:
@@ -85,7 +80,7 @@ class EnrichmentCoordinator:
                             (entity[2]['entityType'] and 'Place' in entity[2]['entityType']):
                         loc_class = self.locs.get_location(entity[0])
                         if loc_class.country:
-                            entity[2]['country'] = country_code_map[loc_class.country]
+                            entity[2]['country'] = country_code_map[loc_class.country][0]
 
                 if entity[0] not in entity_list:
                     entity_list.append(entity[0])
