@@ -26,7 +26,7 @@ class BodyNonbodyClassifier:
 
     def __init__(self):
         try:
-            self.model = spacy.load("en_noise_binary_model")
+            self.model = spacy.load(os.path.join(get_full_path(params['data']['path_to_noise_model'],'model-best')))
             print(f"\nNoise model successfully loaded.")
         except OSError:
             print("\nFailed to load model.")
